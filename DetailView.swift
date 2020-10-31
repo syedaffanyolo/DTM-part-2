@@ -20,7 +20,7 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
     @IBOutlet weak var dislabel: UILabel!
     @IBOutlet weak var mallimage: UIImageView!
     
-    var shopnumbercell : Int? = nil // cell amount variable
+    var shopnumbercell : Int? = nil // cell amount variable to be used later
     
     
     override func viewDidLoad() {
