@@ -64,6 +64,7 @@ class Malls: UIViewController {
         importer.sender = sender.tag
         //after setting value we perform the detailview segue and populate it with the right data
         performSegue(withIdentifier: "detail", sender: self)
+  
        
     }
     
@@ -127,8 +128,10 @@ class Malls: UIViewController {
                     //converting the image string we got from the api to a url then data
                     let grvurl = URL(string: json.gvmallimage)!
                     if let datagr = try? Data(contentsOf: grvurl){
-                        //setting the global variable to the image of this mall to be used in detailView
+                        //setting the global variable to the image of this mall to be used in detailView and the floor numbers 
                         importer.imagegrv = datagr
+                        importer.gvfloors = json.gvfloors
+
                         //setting the backgroung image as retrived data
                         self.cards[0].setBackgroundImage(UIImage(data: datagr), for: .normal)
                         
@@ -140,6 +143,8 @@ class Malls: UIViewController {
                     if let datamm = try? Data(contentsOf: msxurl){
                         
                         importer.imagemsx = datamm
+                        importer.msfloors = json.mmfloors
+                        
                         self.cards[1].setBackgroundImage(UIImage(data: datamm), for: .normal)
                     }
                     
@@ -149,6 +154,8 @@ class Malls: UIViewController {
                     if let dataap = try? Data(contentsOf: ansurl){
                         
                         importer.imageans = dataap
+                        importer.anfloors = json.apfloors
+                        
                         self.cards[2].setBackgroundImage(UIImage(data: dataap), for: .normal)
                     }
                     
@@ -158,6 +165,7 @@ class Malls: UIViewController {
                     if let dataoa = try? Data(contentsOf: omxurl){
                         
                         importer.imageomx = dataoa
+                        importer.omfloors = json.oafloors
                         
                         self.cards[3].setBackgroundImage(UIImage(data: dataoa), for: .normal)
                     }
@@ -184,6 +192,7 @@ class Malls: UIViewController {
                     let dmurl = URL(string: json.dmmallimage)!
                     if let datadm = try? Data(contentsOf: dmurl){
                         importer.imagedm = datadm
+                        importer.dmfloors = json.dmfloors
                         self.cards[0].setBackgroundImage(UIImage(data: datadm), for: .normal)
                     }
                     
@@ -191,6 +200,7 @@ class Malls: UIViewController {
                     let lcurl = URL(string: json.lcmallimage)!
                     if let datalc = try? Data(contentsOf: lcurl){
                         importer.imagelc = datalc
+                        importer.lcfloors = json.lcfloors
                         self.cards[1].setBackgroundImage(UIImage(data: datalc), for: .normal)
                         
                     }
@@ -199,6 +209,7 @@ class Malls: UIViewController {
                     let ggurl = URL(string: json.ggmallimage)!
                     if let datagg = try? Data(contentsOf: ggurl){
                         importer.imagegg = datagg
+                        importer.ggfloors = json.ggfloors
                         self.cards[2].setBackgroundImage(UIImage(data: datagg), for: .normal)
                         
                     }
@@ -207,6 +218,7 @@ class Malls: UIViewController {
                     let gpurl = URL(string: json.gpmallimage)!
                     if let datagp = try? Data(contentsOf: gpurl){
                         importer.imagegp = datagp
+                        importer.gpfloors = json.gpfloors
                         self.cards[3].setBackgroundImage(UIImage(data: datagp), for: .normal)
                     }
                     self.loder.stopAnimating()
@@ -233,6 +245,7 @@ class Malls: UIViewController {
                     let vsurl = URL(string: json.vsmallimage)!
                     if let datavs = try? Data(contentsOf: vsurl){
                         importer.imagevs = datavs
+                        importer.vsfloors = json.vsfloors
                         self.cards[0].setBackgroundImage(UIImage(data: datavs), for: .normal)
                     }
                     
@@ -240,6 +253,7 @@ class Malls: UIViewController {
                     let tcurl = URL(string: json.tcmallimage)!
                     if let datatc = try? Data(contentsOf: tcurl){
                         importer.imagetc = datatc
+                        importer.tcfloors = json.tcfloors
                         self.cards[1].setBackgroundImage(UIImage(data: datatc), for: .normal)
                         
                     }
@@ -248,6 +262,7 @@ class Malls: UIViewController {
                     let ccurl = URL(string: json.ccmallimage)!
                     if let datacc = try? Data(contentsOf: ccurl){
                         importer.imagecc = datacc
+                        importer.ccfloors = json.ccfloors
                         self.cards[2].setBackgroundImage(UIImage(data: datacc), for: .normal)
                         
                     }
@@ -256,6 +271,7 @@ class Malls: UIViewController {
                     let cmurl = URL(string: json.cmmallimage)!
                     if let datacm = try? Data(contentsOf: cmurl){
                         importer.imagecm = datacm
+                        importer.cmfloors = json.cmfloors
                         self.cards[3].setBackgroundImage(UIImage(data: datacm), for: .normal)
                     }
                     
@@ -263,6 +279,7 @@ class Malls: UIViewController {
                     let dsurl = URL(string: json.dsmallimage)!
                     if let datads = try? Data(contentsOf: dsurl){
                         importer.imageds = datads
+                        importer.dsfloors = json.dsfloors
                         self.cards[4].setBackgroundImage(UIImage(data: datads), for: .normal)
                     }
                     
@@ -270,6 +287,7 @@ class Malls: UIViewController {
                     let amurl = URL(string: json.ammallimage)!
                     if let dataam = try? Data(contentsOf: amurl){
                         importer.imageam = dataam
+                        importer.amfloors = json.amfloors
                         self.cards[5].setBackgroundImage(UIImage(data: dataam), for: .normal)
                         
                     }
@@ -278,6 +296,7 @@ class Malls: UIViewController {
                     let pmurl = URL(string: json.pmmallimage)!
                     if let datapm = try? Data(contentsOf: pmurl){
                         importer.imagepm = datapm
+                        importer.pmfloors = json.pmfloors
                         self.cards[6].setBackgroundImage(UIImage(data: datapm), for: .normal)
                         
                     }
@@ -286,6 +305,7 @@ class Malls: UIViewController {
                     let scurl = URL(string: json.scmallimage)!
                     if let datasc = try? Data(contentsOf: scurl){
                         importer.imagesc = datasc
+                        importer.scfloors = json.scfloors
                         self.cards[7].setBackgroundImage(UIImage(data: datasc), for: .normal)
                     }
                     self.loder.stopAnimating()
@@ -316,11 +336,19 @@ class Malls: UIViewController {
         static var imageomx : Data? = nil
         static var imageans : Data? = nil
         static var imagemsx : Data? = nil
+        static var gvfloors : Int? = nil
+        static var omfloors : Int? = nil
+        static var anfloors : Int? = nil
+        static var msfloors : Int? = nil
         //noida
         static var imagedm : Data? = nil
         static var imagelc : Data? = nil
         static var imagegg : Data? = nil
         static var imagegp : Data? = nil
+        static var lcfloors : Int? = nil
+        static var ggfloors : Int? = nil
+        static var gpfloors : Int? = nil
+        static var dmfloors : Int? = nil
         //delhi
         static var imagevs : Data? = nil
         static var imagetc : Data? = nil
@@ -330,7 +358,16 @@ class Malls: UIViewController {
         static var imageam : Data? = nil
         static var imagepm : Data? = nil
         static var imagesc : Data? = nil
+        static var vsfloors : Int? = nil
+        static var tcfloors : Int? = nil
+        static var ccfloors : Int? = nil
+        static var cmfloors : Int? = nil
+        static var dsfloors : Int? = nil
+        static var amfloors : Int? = nil
+        static var pmfloors : Int? = nil
+        static var scfloors : Int? = nil
         
     }
+    
 }
 

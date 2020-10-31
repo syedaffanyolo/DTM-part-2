@@ -9,9 +9,9 @@ import UIKit
 
 // assiging the delegate for our uipicker view
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-   
     
-   
+  
+    
     
     // all outlets
     @IBOutlet weak var locPick: UIPickerView!
@@ -24,12 +24,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     override func viewDidLoad() {
         super.viewDidLoad()
- // rendering all the stuff for our location picker view
+        // rendering all the stuff for our location picker view
         render()
         
-    
         
-       
+        
+        
         // setting data source anf delgate
         self.locPick.delegate = self
         self.locPick.dataSource = self
@@ -39,24 +39,24 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         
         
-                
+        
     }
     
     @IBAction func next(_ sender: Any) {
         // gets in a variable what region is being selceted currently by the user
         let selectedReg = locationPicker[locPick.selectedRow(inComponent: 0)]
         
-       
+        
         // having a no shadow when clicked for our button
         nextb.layer.shadowOpacity = 0.0;
         // setting the selected region by the user to the global variable region
         myGlobalVar.region = selectedReg
         
         // performing a segue whrn the next button is clicked
-            performSegue(withIdentifier: "Malls", sender: self)
+        performSegue(withIdentifier: "Malls", sender: self)
         
-       
-      
+        
+        
         
     }
     
@@ -74,9 +74,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return locationPicker[row]
     }
-
+    
     func render(){
+        
+
+        
         // all elemnet styles
+        
         nextb.layer.cornerRadius = 10
         locPick.layer.cornerRadius = 20
         nextb.layer.shadowOffset = CGSize(width: 2.0, height: 2.0);
@@ -88,12 +92,28 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         locPick.layer.shadowOpacity = 1.0;
         locPick.layer.masksToBounds = false;
     }
+    
+    
+    
+    
     // global variable for region
-
+    
     struct myGlobalVar {
         static var region = String()
+       
     }
-    //uiyfu
-}
+  
+            
+        }
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
 
 
