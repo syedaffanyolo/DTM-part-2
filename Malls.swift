@@ -64,8 +64,8 @@ class Malls: UIViewController {
         importer.sender = sender.tag
         //after setting value we perform the detailview segue and populate it with the right data
         performSegue(withIdentifier: "detail", sender: self)
-  
-       
+        
+        
     }
     
     // back swipe gesture action
@@ -89,7 +89,7 @@ class Malls: UIViewController {
             cards[i].titleLabel!.layer.masksToBounds = false;
         }
         // url session to get data back from the api into readable format
-       
+        
         let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {data, response, error in
             guard let data = data, error == nil else{
                 print("somthin wrong")
@@ -124,14 +124,15 @@ class Malls: UIViewController {
                     
                     /// grand venice
                     //setting title
-                     self.cards[0].setTitle(json.gvname, for: .normal)
+                    self.cards[0].setTitle(json.gvname, for: .normal)
                     //converting the image string we got from the api to a url then data
                     let grvurl = URL(string: json.gvmallimage)!
                     if let datagr = try? Data(contentsOf: grvurl){
-                        //setting the global variable to the image of this mall to be used in detailView and the floor numbers 
+                        //setting the global variable to the image of this mall to be used in detailView,mall name,mall adress and the floor numbers
+                        importer.gvdis = json.gvdis
                         importer.imagegrv = datagr
                         importer.gvfloors = json.gvfloors
-
+                        importer.gvname = json.gvname
                         //setting the backgroung image as retrived data
                         self.cards[0].setBackgroundImage(UIImage(data: datagr), for: .normal)
                         
@@ -141,10 +142,10 @@ class Malls: UIViewController {
                     self.cards[1].setTitle(json.mmname, for: .normal)
                     let msxurl = URL(string: json.mmmallimage)!
                     if let datamm = try? Data(contentsOf: msxurl){
-                        
+                        importer.msdis = json.mmdis
                         importer.imagemsx = datamm
                         importer.msfloors = json.mmfloors
-                        
+                        importer.msname = json.mmname
                         self.cards[1].setBackgroundImage(UIImage(data: datamm), for: .normal)
                     }
                     
@@ -152,10 +153,10 @@ class Malls: UIViewController {
                     self.cards[2].setTitle(json.apname, for: .normal)
                     let ansurl = URL(string: json.apmallimage)!
                     if let dataap = try? Data(contentsOf: ansurl){
-                        
+                        importer.andis = json.apdis
                         importer.imageans = dataap
                         importer.anfloors = json.apfloors
-                        
+                        importer.anname = json.apname
                         self.cards[2].setBackgroundImage(UIImage(data: dataap), for: .normal)
                     }
                     
@@ -163,10 +164,10 @@ class Malls: UIViewController {
                     self.cards[3].setTitle(json.oaname, for: .normal)
                     let omxurl = URL(string: json.oamallimage)!
                     if let dataoa = try? Data(contentsOf: omxurl){
-                        
+                        importer.oadis = json.oadis
                         importer.imageomx = dataoa
                         importer.omfloors = json.oafloors
-                        
+                        importer.oaname = json.oaname
                         self.cards[3].setBackgroundImage(UIImage(data: dataoa), for: .normal)
                     }
                     //stop animating then hide the loader and uiview its on and its capabilites so that elemnts beind it are accessable , since we have retrieved all the data we need for this mall we can stop the loading stuff
@@ -191,16 +192,20 @@ class Malls: UIViewController {
                     self.cards[0].setTitle(json.dmname, for: .normal)
                     let dmurl = URL(string: json.dmmallimage)!
                     if let datadm = try? Data(contentsOf: dmurl){
+                        importer.dmdis = json.dmdis
                         importer.imagedm = datadm
                         importer.dmfloors = json.dmfloors
+                        importer.dmname = json.dmname
                         self.cards[0].setBackgroundImage(UIImage(data: datadm), for: .normal)
                     }
                     
                     self.cards[1].setTitle(json.lcname, for: .normal)
                     let lcurl = URL(string: json.lcmallimage)!
                     if let datalc = try? Data(contentsOf: lcurl){
+                        importer.lcdis = json.lcdis
                         importer.imagelc = datalc
                         importer.lcfloors = json.lcfloors
+                        importer.lcname = json.lcname
                         self.cards[1].setBackgroundImage(UIImage(data: datalc), for: .normal)
                         
                     }
@@ -208,8 +213,10 @@ class Malls: UIViewController {
                     self.cards[2].setTitle(json.ggname, for: .normal)
                     let ggurl = URL(string: json.ggmallimage)!
                     if let datagg = try? Data(contentsOf: ggurl){
+                        importer.ggdis = json.ggdis
                         importer.imagegg = datagg
                         importer.ggfloors = json.ggfloors
+                        importer.ggname = json.ggname
                         self.cards[2].setBackgroundImage(UIImage(data: datagg), for: .normal)
                         
                     }
@@ -217,8 +224,10 @@ class Malls: UIViewController {
                     self.cards[3].setTitle(json.gpname, for: .normal)
                     let gpurl = URL(string: json.gpmallimage)!
                     if let datagp = try? Data(contentsOf: gpurl){
+                        importer.gpdis = json.gpdis
                         importer.imagegp = datagp
                         importer.gpfloors = json.gpfloors
+                        importer.gpname = json.gpname
                         self.cards[3].setBackgroundImage(UIImage(data: datagp), for: .normal)
                     }
                     self.loder.stopAnimating()
@@ -244,16 +253,20 @@ class Malls: UIViewController {
                     self.cards[0].setTitle(json.vsname, for: .normal)
                     let vsurl = URL(string: json.vsmallimage)!
                     if let datavs = try? Data(contentsOf: vsurl){
+                        importer.vsdis = json.vsdis
                         importer.imagevs = datavs
                         importer.vsfloors = json.vsfloors
+                        importer.vsname = json.vsname
                         self.cards[0].setBackgroundImage(UIImage(data: datavs), for: .normal)
                     }
                     
                     self.cards[1].setTitle(json.tcname, for: .normal)
                     let tcurl = URL(string: json.tcmallimage)!
                     if let datatc = try? Data(contentsOf: tcurl){
+                        importer.tcdis = json.tcdis
                         importer.imagetc = datatc
                         importer.tcfloors = json.tcfloors
+                        importer.tcname = json.tcname
                         self.cards[1].setBackgroundImage(UIImage(data: datatc), for: .normal)
                         
                     }
@@ -261,8 +274,10 @@ class Malls: UIViewController {
                     self.cards[2].setTitle(json.ccname, for: .normal)
                     let ccurl = URL(string: json.ccmallimage)!
                     if let datacc = try? Data(contentsOf: ccurl){
+                        importer.ccdis = json.ccdis
                         importer.imagecc = datacc
                         importer.ccfloors = json.ccfloors
+                        importer.ccname = json.ccname
                         self.cards[2].setBackgroundImage(UIImage(data: datacc), for: .normal)
                         
                     }
@@ -270,24 +285,30 @@ class Malls: UIViewController {
                     self.cards[3].setTitle(json.cmname, for: .normal)
                     let cmurl = URL(string: json.cmmallimage)!
                     if let datacm = try? Data(contentsOf: cmurl){
+                        importer.cmdis = json.cmdis
                         importer.imagecm = datacm
                         importer.cmfloors = json.cmfloors
+                        importer.cmname = json.cmname
                         self.cards[3].setBackgroundImage(UIImage(data: datacm), for: .normal)
                     }
                     
                     self.cards[4].setTitle(json.dsname, for: .normal)
                     let dsurl = URL(string: json.dsmallimage)!
                     if let datads = try? Data(contentsOf: dsurl){
+                        importer.dsdis = json.dsdis
                         importer.imageds = datads
                         importer.dsfloors = json.dsfloors
+                        importer.dsname = json.dsname
                         self.cards[4].setBackgroundImage(UIImage(data: datads), for: .normal)
                     }
                     
                     self.cards[5].setTitle(json.amname, for: .normal)
                     let amurl = URL(string: json.ammallimage)!
                     if let dataam = try? Data(contentsOf: amurl){
+                        importer.amdis = json.amdis
                         importer.imageam = dataam
                         importer.amfloors = json.amfloors
+                        importer.amname = json.amname
                         self.cards[5].setBackgroundImage(UIImage(data: dataam), for: .normal)
                         
                     }
@@ -295,8 +316,10 @@ class Malls: UIViewController {
                     self.cards[6].setTitle(json.pmname, for: .normal)
                     let pmurl = URL(string: json.pmmallimage)!
                     if let datapm = try? Data(contentsOf: pmurl){
+                        importer.pmdis = json.pmdis
                         importer.imagepm = datapm
                         importer.pmfloors = json.pmfloors
+                        importer.pmname = json.pmname
                         self.cards[6].setBackgroundImage(UIImage(data: datapm), for: .normal)
                         
                     }
@@ -304,8 +327,10 @@ class Malls: UIViewController {
                     self.cards[7].setTitle(json.scname, for: .normal)
                     let scurl = URL(string: json.scmallimage)!
                     if let datasc = try? Data(contentsOf: scurl){
+                        importer.scdis = json.scdis
                         importer.imagesc = datasc
                         importer.scfloors = json.scfloors
+                        importer.scname = json.scname
                         self.cards[7].setBackgroundImage(UIImage(data: datasc), for: .normal)
                     }
                     self.loder.stopAnimating()
@@ -314,15 +339,15 @@ class Malls: UIViewController {
                     self.loderView.isExclusiveTouch = false
                     self.loderView.isUserInteractionEnabled = false
                 }
-               
+                
             }
             
             
         })
-    // here is where we resume our networking i think maybe ignore this or maybe this the reason why we taking so much time to render SHOULD LOOK INTO THAT PROBLEM MAYBE THIS RELEVANT
+        // here is where we resume our networking i think maybe ignore this or maybe this the reason why we taking so much time to render SHOULD LOOK INTO THAT PROBLEM MAYBE THIS RELEVANT
         task.resume()
         
-     
+        
         
         
         
@@ -340,6 +365,15 @@ class Malls: UIViewController {
         static var omfloors : Int? = nil
         static var anfloors : Int? = nil
         static var msfloors : Int? = nil
+        static var gvname :String? = nil
+        static var msname :String? = nil
+        static var anname :String? = nil
+        static var oaname :String? = nil
+        static var gvdis : String? = nil
+        static var msdis : String? = nil
+        static var andis : String? = nil
+        static var oadis : String? = nil
+        
         //noida
         static var imagedm : Data? = nil
         static var imagelc : Data? = nil
@@ -349,6 +383,15 @@ class Malls: UIViewController {
         static var ggfloors : Int? = nil
         static var gpfloors : Int? = nil
         static var dmfloors : Int? = nil
+        static var dmname :String? = nil
+        static var lcname :String? = nil
+        static var ggname :String? = nil
+        static var gpname :String? = nil
+        static var dmdis : String? = nil
+        static var lcdis : String? = nil
+        static var ggdis : String? = nil
+        static var gpdis : String? = nil
+        
         //delhi
         static var imagevs : Data? = nil
         static var imagetc : Data? = nil
@@ -366,6 +409,23 @@ class Malls: UIViewController {
         static var amfloors : Int? = nil
         static var pmfloors : Int? = nil
         static var scfloors : Int? = nil
+        static var vsname :String? = nil
+        static var tcname :String? = nil
+        static var ccname :String? = nil
+        static var cmname :String? = nil
+        static var dsname :String? = nil
+        static var amname :String? = nil
+        static var pmname :String? = nil
+        static var scname :String? = nil
+        static var vsdis : String? = nil
+        static var tcdis : String? = nil
+        static var ccdis : String? = nil
+        static var cmdis : String? = nil
+        static var dsdis : String? = nil
+        static var amdis : String? = nil
+        static var pmdis : String? = nil
+        static var scdis : String? = nil
+        
         
     }
     

@@ -566,15 +566,17 @@
                                             <constraint firstAttribute="width" constant="414" id="rCK-xK-Y59"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rgdfghfsghfghshdsffdsgsdfgdsfgdsfgdfsgsdfgdfsgfsdgdfgdfsgdfsgdfsgdfsgdfgdsfgsdf" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0np-lo-2bT">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rgdfghfsghfghshdsffdsgsdfgdsfgdsfgdfsgsdfgdfsgfsdgdfgdfsgdfsgdfsgdfsgdfgdsfgsdf" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0np-lo-2bT">
                                         <rect key="frame" x="20" y="100" width="306" height="54"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="306" id="UTp-A6-W85"/>
                                             <constraint firstAttribute="height" constant="54" id="gtI-iQ-bIB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="shadowOffset" width="2" height="1"/>
                                     </label>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUk-qT-exz">
                                         <rect key="frame" x="334" y="100" width="61" height="60"/>
@@ -583,6 +585,7 @@
                                             <constraint firstAttribute="width" constant="61" id="Szl-s0-sMY"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                        <size key="titleShadowOffset" width="1" height="2"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <imageReference key="image" image="location.fill" catalog="system" symbolScale="large"/>
@@ -710,6 +713,7 @@
                         <outlet property="detailTable" destination="S6v-2R-bBq" id="ZEq-7L-1kx"/>
                         <outlet property="dislabel" destination="0np-lo-2bT" id="9ma-sP-z5Z"/>
                         <outlet property="mallimage" destination="De5-Ja-5lZ" id="ECw-X6-zqf"/>
+                        <outlet property="navBar" destination="HFj-MW-gxQ" id="x3h-fQ-LHk"/>
                         <outlet property="navigation" destination="OUk-qT-exz" id="M5l-vn-xyH"/>
                     </connections>
                 </viewController>

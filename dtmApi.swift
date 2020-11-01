@@ -13,9 +13,9 @@ import Foundation
 struct grNoida : Codable{
     
     let gvname : String
+    let gvdis : String
     let gvshops:[String]
     let gvmallimage:String
-    let gvshopimages:[String]
     let gvid:Int
     let gvfloors:Int
     let gvshopphone:[Int]
@@ -23,19 +23,19 @@ struct grNoida : Codable{
     let gvshopdiscriptions:[String]
 
     let mmname : String
+    let mmdis : String
     let mmfloors:Int
     let mmshops:[String]
     let mmmallimage:String
-    let mmshopimages:[String]
     let mmid:Int
     let mmshopphone:[Int]
     let mmshopnumbers:Int
     let mmshopdiscriptions:[String]
     
     let apname : String
+    let apdis : String
     let apshops:[String]
     let apmallimage:String
-    let apshopimages:[String]
     let apid:Int
     let apshopphone:[Int]
     let apshopnumbers:Int
@@ -43,9 +43,9 @@ struct grNoida : Codable{
     let apfloors:Int
     
     let oaname : String
+    let oadis : String
     let oashops:[String]
     let oamallimage:String
-    let oashopimages:[String]
     let oaid:Int
     let oashopphone:[Int]
     let oashopnumbers:Int
@@ -53,9 +53,9 @@ struct grNoida : Codable{
     let oafloors:Int
     
     let dmname : String
+    let dmdis : String
     let dmshops:[String]
     let dmmallimage:String
-    let dmshopimages:[String]
     let dmid:Int
     let dmshopphone:[Int]
     let dmshopnumbers:Int
@@ -63,9 +63,9 @@ struct grNoida : Codable{
     let dmfloors:Int
     
     let lcname : String
+    let lcdis : String
     let lcshops:[String]
     let lcmallimage:String
-    let lcshopimages:[String]
     let lcid:Int
     let lcshopphone:[Int]
     let lcshopnumbers:Int
@@ -73,9 +73,9 @@ struct grNoida : Codable{
     let lcfloors:Int
     
     let ggname : String
+    let ggdis : String
     let ggshops:[String]
     let ggmallimage:String
-    let ggshopimages:[String]
     let ggid:Int
     let ggshopphone:[Int]
     let ggshopnumbers:Int
@@ -83,9 +83,9 @@ struct grNoida : Codable{
     let ggfloors:Int
     
     let gpname : String
+    let gpdis : String
     let gpshops:[String]
     let gpmallimage:String
-    let gpshopimages:[String]
     let gpid:Int
     let gpshopphone:[Int]
     let gpshopnumbers:Int
@@ -93,9 +93,9 @@ struct grNoida : Codable{
     let gpfloors:Int
     
     let vsname : String
+    let vsdis : String
     let vsshops:[String]
     let vsmallimage:String
-    let vsshopimages:[String]
     let vsid:Int
     let vsshopphone:[Int]
     let vsshopnumbers:Int
@@ -103,9 +103,9 @@ struct grNoida : Codable{
     let vsfloors:Int
     
     let tcname : String
+    let tcdis : String
     let tcshops:[String]
     let tcmallimage:String
-    let tcshopimages:[String]
     let tcid:Int
     let tcshopphone:[Int]
     let tcshopnumbers:Int
@@ -113,9 +113,9 @@ struct grNoida : Codable{
     let tcfloors:Int
     
     let ccname : String
+    let ccdis : String
     let ccshops:[String]
     let ccmallimage:String
-    let ccshopimages:[String]
     let ccid:Int
     let ccshopphone:[Int]
     let ccshopnumbers:Int
@@ -123,9 +123,9 @@ struct grNoida : Codable{
     let ccfloors:Int
     
     let cmname : String
+    let cmdis : String
     let cmshops:[String]
     let cmmallimage:String
-    let cmshopimages:[String]
     let cmid:Int
     let cmshopphone:[Int]
     let cmshopnumbers:Int
@@ -133,9 +133,9 @@ struct grNoida : Codable{
     let cmfloors:Int
     
     let dsname : String
+    let dsdis : String
     let dsshops:[String]
     let dsmallimage:String
-    let dsshopimages:[String]
     let dsid:Int
     let dsshopphone:[Int]
     let dsshopnumbers:Int
@@ -143,9 +143,9 @@ struct grNoida : Codable{
     let dsfloors:Int
     
     let amname : String
+    let amdis : String
     let amshops:[String]
     let ammallimage:String
-    let amshopimages:[String]
     let amid:Int
     let amshopphone:[Int]
     let amshopnumbers:Int
@@ -153,9 +153,9 @@ struct grNoida : Codable{
     let amfloors:Int
     
     let pmname : String
+    let pmdis : String
     let pmshops:[String]
     let pmmallimage:String
-    let pmshopimages:[String]
     let pmid:Int
     let pmshopphone:[Int]
     let pmshopnumbers:Int
@@ -163,9 +163,9 @@ struct grNoida : Codable{
     let pmfloors:Int
     
     let scname : String
+    let scdis : String
     let scshops:[String]
     let scmallimage:String
-    let scshopimages:[String]
     let scid:Int
     let scshopphone:[Int]
     let scshopnumbers:Int
