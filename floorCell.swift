@@ -12,7 +12,7 @@ class floorCell: UITableViewCell {
 //outlets
     @IBOutlet weak var floorButton: UIButton!
     @IBOutlet weak var floorName: UILabel!
-    
+    @IBOutlet weak var shopButton: UIButton!
     
     
     
@@ -22,6 +22,9 @@ class floorCell: UITableViewCell {
     }
     // shopsnextbutton
     @IBAction func shopsButton(_ sender: Any) {
-       
+      //  Malls.importer.floorsender = shopButton.sender.tag
+        
+        //print(Malls.importer.floorsender)
+        // print("hereyougo\(Malls.importer.floorsender)")
     }
 }

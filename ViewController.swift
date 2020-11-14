@@ -29,7 +29,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         
         
-        
+      
         // setting data source anf delgate
         self.locPick.delegate = self
         self.locPick.dataSource = self

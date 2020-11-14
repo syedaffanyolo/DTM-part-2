@@ -105,7 +105,9 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
             case 1:
                 let images = UIImage(data: Malls.importer.dataFloorLc![indexPath.row]) // setting a var for our cell to contain picture for each row of cell
                 cell.floorButton.setBackgroundImage(images, for: .normal) // setting image from that var to each cell's button in each row
-                cell.floorName.text =  Malls.importer.lcfloornames![indexPath.row] // setting floornames label from global [var] to each cell of wach row
+                cell.floorName.text =  Malls.importer.lcfloornames![indexPath.row]// setting floornames label from global [var] to each cell of wach row
+                cell.shopButton.tag = indexPath.row
+                cell.shopButton.addTarget(self, action: #selector(shopstapped(_:)), for: .touchUpInside)
                 navBar.title = Malls.importer.lcname
                 dislabel.text = Malls.importer.lcdis
                 mallimage.image = UIImage(data: Malls.importer.imagelc!)
@@ -124,7 +126,6 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
             default:
                 return UITableViewCell()
             }
-            
         }else if ViewController.myGlobalVar.region == "Delhi"{
             
             switch Malls.importer.sender {
@@ -212,5 +213,13 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         mapItem.name = placeName
         mapItem.openInMaps(launchOptions: options)
     }
-    
+    @objc func shopstapped(_ sender: UIButton){
+     
+       let button = sender.tag
+        //print("hereyougo\(button)")
+        Malls.importer.floorsender = button
+        //print("hereyougo\(Malls.importer.floorsender)")
+        
+     }
+
 }

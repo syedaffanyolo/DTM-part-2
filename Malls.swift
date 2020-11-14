@@ -30,7 +30,9 @@ class SegueFromLeft: UIStoryboardSegue {
                         src.present(dst, animated: false, completion: nil)
                        }
         )
+    
     }
+    
 }
 
 class Malls: UIViewController {
@@ -57,6 +59,7 @@ class Malls: UIViewController {
         // getting api data back iwth rendering all styles
         // litereally rendering everytrhing here
         render(url: url)
+        
     }
     
     //button actions
@@ -218,12 +221,12 @@ class Malls: UIViewController {
                         importer.lcfloornames = json.lcfloornames
                         importer.lcname = json.lcname
                         importer.lcfloorimg = json.lcfloorimages //getting all 3 url strings from json converted api
-                        //                        importer.lcshopnameslg = json.lcshopslg
-                        //                        importer.lcshopnamesg = json.lcshopg
-                        //                        importer.lcshopnames1 = json.lcshop1
-                        //                        importer.lcshopnames2 = json.lcshop2
-                        //                        importer.lcshopnames3 = json.lcshop3
-                        //                        importer.lcshopnames4 = json.lcshop4
+                        importer.lcshopnameslg = json.lcshopslg // shops in lower ground
+                        importer.lcshopnamesg = json.lcshopg // shops in ground
+                        importer.lcshopnames1 = json.lcshop1 // shops in 1st floor
+                        importer.lcshopnames2 = json.lcshop2 // 2nd
+                        importer.lcshopnames3 = json.lcshop3 // 3rd
+                        importer.lcshopnames4 = json.lcshop4 // 4th
                         self.cards[1].setBackgroundImage(UIImage(data: datalc), for: .normal)
                         
                     }
@@ -393,6 +396,7 @@ class Malls: UIViewController {
     struct importer {
         // global sender.tag
         static var sender : Int? = nil
+        static var floorsender : Int? = nil
         //gr noida
         static var imagegrv : Data? = nil
         static var imageomx : Data? = nil
@@ -434,13 +438,13 @@ class Malls: UIViewController {
         static var gpdis : String? = nil
         static var lcfloorimg : [String]? = nil
         static var lcfloornames : [String]? = nil
-        //        static var lcshopnameslg : [String]? = nil
-        //        static var lcshopnamesg : [String]? = nil
-        //        static var lcshopnames1 : [String]? = nil
-        //        static var lcshopnames2 : [String]? = nil
-        //        static var lcshopnames3: [String]? = nil
-        //        static var lcshopnames4 : [String]? = nil
-        //
+                static var lcshopnameslg : [String]? = nil
+                static var lcshopnamesg : [String]? = nil
+                static var lcshopnames1 : [String]? = nil
+                static var lcshopnames2 : [String]? = nil
+                static var lcshopnames3: [String]? = nil
+                static var lcshopnames4 : [String]? = nil
+        
         
         //delhi
         static var imagevs : Data? = nil
