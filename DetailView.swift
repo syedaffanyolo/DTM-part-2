@@ -31,7 +31,7 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         detailTable.delegate = self
         detailTable.dataSource = self
         //rendering all the detail for the selcted mall while the detail seque starts at first
-       
+        
         
     }
     // navigation/map action
@@ -49,7 +49,7 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         
     }
     // big boss 2 lies here
-  
+    
     //table view stubs
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3 // testing number for logix city data
@@ -58,12 +58,12 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = detailTable.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! floorCell // custom cell
-       
+        
         //setting nav bar title to empty
         navBar.title = ""
         //checking selected region
         // like here we check foro grnoida and we know we got 4 malls , since we are having reusable buttons we cant assign them all in one so we have to check what region we are in and then populating the data of the mall we selcted from that region
-      
+        
         if ViewController.myGlobalVar.region == "Greater Noida"{
             // the switch statement here is an integer it is the sender.tag global variable
             switch Malls.importer.sender {
@@ -106,8 +106,8 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 let images = UIImage(data: Malls.importer.dataFloorLc![indexPath.row]) // setting a var for our cell to contain picture for each row of cell
                 cell.floorButton.setBackgroundImage(images, for: .normal) // setting image from that var to each cell's button in each row
                 cell.floorName.text =  Malls.importer.lcfloornames![indexPath.row]// setting floornames label from global [var] to each cell of wach row
-                cell.shopButton.tag = indexPath.row
-                cell.shopButton.addTarget(self, action: #selector(shopstapped(_:)), for: .touchUpInside)
+                cell.shopButton.tag = indexPath.row // setting the shopbutton tag to indexpath.row which sets 3 int means 0...2
+                cell.shopButton.addTarget(self, action: #selector(shopstapped(_:)), for: .touchUpInside) // adding custom rtarget function refer to the func below
                 navBar.title = Malls.importer.lcname
                 dislabel.text = Malls.importer.lcdis
                 mallimage.image = UIImage(data: Malls.importer.imagelc!)
@@ -169,15 +169,15 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 dislabel.text = Malls.importer.scdis
                 mallimage.image = UIImage(data: Malls.importer.imagesc!)
                 shopnumbercell = Malls.importer.scfloors
-
+                
             default:
                 return UITableViewCell()
             }
-        
+            
         }
         
         
- 
+        
         
         return cell
         
@@ -213,13 +213,13 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         mapItem.name = placeName
         mapItem.openInMaps(launchOptions: options)
     }
-    @objc func shopstapped(_ sender: UIButton){
-     
-       let button = sender.tag
-        //print("hereyougo\(button)")
-        Malls.importer.floorsender = button
-        //print("hereyougo\(Malls.importer.floorsender)")
+    @objc func shopstapped(_ sender: UIButton){ // ok so this function doesnt need explanation beause i dont know how to but this is hardcoded to get hold of button tapped in each and every indiviual cells in the table view with the help of sender tag-- this func is a target func targeted on line (110)
         
-     }
-
+        let button = sender.tag
+        
+        Malls.importer.floorsender = button // setting sender.tag to our foorsender which is  global so can be used and initalized anywhere.
+        
+        
+    }
+    
 }

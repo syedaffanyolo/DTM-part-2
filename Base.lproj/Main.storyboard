@@ -879,9 +879,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mBG-kh-DXX"/>
-        <segue reference="qcj-9H-5I3"/>
-        <segue reference="dVq-mq-5gq"/>
+        <segue reference="uzH-1h-2s6"/>
+        <segue reference="xt1-ZP-HJf"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.forward.circle.fill" catalog="system" width="128" height="121"/>

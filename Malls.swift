@@ -11,29 +11,6 @@ import UIKit
 //node.js api
 let url = "https://dtmappapi.herokuapp.com/data"
 
-//left gesture
-class SegueFromLeft: UIStoryboardSegue {
-    override func perform() {
-        let src = self.source
-        let dst = self.destination
-        
-        src.view.superview?.insertSubview(dst.view, aboveSubview: src.view)
-        dst.view.transform = CGAffineTransform(translationX: -src.view.frame.size.width, y: 0)
-        
-        UIView.animate(withDuration: 0.25,
-                       delay: 0.0,
-                       options: .curveEaseInOut,
-                       animations: {
-                        dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
-                       },
-                       completion: { finished in
-                        src.present(dst, animated: false, completion: nil)
-                       }
-        )
-    
-    }
-    
-}
 
 class Malls: UIViewController {
     
@@ -215,11 +192,11 @@ class Malls: UIViewController {
                     self.cards[1].setTitle(json.lcname, for: .normal)
                     let lcurl = URL(string: json.lcmallimage)!
                     if let datalc = try? Data(contentsOf: lcurl){
-                        importer.lcdis = json.lcdis
-                        importer.imagelc = datalc
-                        importer.lcfloors = json.lcfloors
-                        importer.lcfloornames = json.lcfloornames
-                        importer.lcname = json.lcname
+                        importer.lcdis = json.lcdis // mall addrss
+                        importer.imagelc = datalc // mall image
+                        importer.lcfloors = json.lcfloors // mall floors int
+                        importer.lcfloornames = json.lcfloornames // malls floornames
+                        importer.lcname = json.lcname // mall name
                         importer.lcfloorimg = json.lcfloorimages //getting all 3 url strings from json converted api
                         importer.lcshopnameslg = json.lcshopslg // shops in lower ground
                         importer.lcshopnamesg = json.lcshopg // shops in ground
@@ -396,6 +373,7 @@ class Malls: UIViewController {
     struct importer {
         // global sender.tag
         static var sender : Int? = nil
+        // global floorsender.tag
         static var floorsender : Int? = nil
         //gr noida
         static var imagegrv : Data? = nil
@@ -418,7 +396,7 @@ class Malls: UIViewController {
         
         //noida
         static var imagedm : Data? = nil
-        static var dataFloorLc : [Data]? = nil
+        static var dataFloorLc : [Data]? = nil // array contains all the floors in lc i.e. logix city noida
         //        static var dataFloorLc2 : Data? = nil
         //        static var dataFloorLc3 : Data? = nil
         static var imagelc : Data? = nil
@@ -438,12 +416,12 @@ class Malls: UIViewController {
         static var gpdis : String? = nil
         static var lcfloorimg : [String]? = nil
         static var lcfloornames : [String]? = nil
-                static var lcshopnameslg : [String]? = nil
-                static var lcshopnamesg : [String]? = nil
-                static var lcshopnames1 : [String]? = nil
-                static var lcshopnames2 : [String]? = nil
-                static var lcshopnames3: [String]? = nil
-                static var lcshopnames4 : [String]? = nil
+        static var lcshopnameslg : [String]? = nil
+        static var lcshopnamesg : [String]? = nil
+        static var lcshopnames1 : [String]? = nil
+        static var lcshopnames2 : [String]? = nil
+        static var lcshopnames3: [String]? = nil
+        static var lcshopnames4 : [String]? = nil
         
         
         //delhi

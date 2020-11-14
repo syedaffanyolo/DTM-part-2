@@ -8,8 +8,8 @@
 import UIKit
 
 class shopCell: UITableViewCell {
-
+    
     @IBOutlet weak var shopname: UILabel!
     
-
+    
 }
