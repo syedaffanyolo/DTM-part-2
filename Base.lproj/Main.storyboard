@@ -672,7 +672,7 @@
                                                 <color key="backgroundColor" red="0.93333333330000001" green="0.92549019610000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <outlet property="floorButton" destination="FL5-Fm-ixh" id="NVi-8k-302"/>
-                                                    <outlet property="floorint" destination="u9L-2I-Uqx" id="LMt-4U-ecZ"/>
+                                                    <outlet property="floorName" destination="JbH-2H-qg1" id="gp8-l1-CGm"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

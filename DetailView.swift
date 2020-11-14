@@ -31,7 +31,7 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         detailTable.delegate = self
         detailTable.dataSource = self
         //rendering all the detail for the selcted mall while the detail seque starts at first
-        render()
+       
         
     }
     // navigation/map action
@@ -49,11 +49,21 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         
     }
     // big boss 2 lies here
-    func render(){
+  
+    //table view stubs
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3 // testing number for logix city data
+        //shopnumbercell! // amount of cells to be presented  = floors in mall
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = detailTable.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! floorCell // custom cell
+       
         //setting nav bar title to empty
         navBar.title = ""
         //checking selected region
         // like here we check foro grnoida and we know we got 4 malls , since we are having reusable buttons we cant assign them all in one so we have to check what region we are in and then populating the data of the mall we selcted from that region
+      
         if ViewController.myGlobalVar.region == "Greater Noida"{
             // the switch statement here is an integer it is the sender.tag global variable
             switch Malls.importer.sender {
@@ -79,10 +89,13 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 dislabel.text = Malls.importer.oadis
                 mallimage.image = UIImage(data: Malls.importer.imageomx!)
                 shopnumbercell = Malls.importer.omfloors
+                
             default:
-                return
+                return UITableViewCell()
             }
+            
         }else if ViewController.myGlobalVar.region == "Noida"{
+            
             switch Malls.importer.sender {
             case 0:
                 navBar.title = Malls.importer.dmname
@@ -90,6 +103,9 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 mallimage.image = UIImage(data: Malls.importer.imagedm!)
                 shopnumbercell = Malls.importer.dmfloors
             case 1:
+                let images = UIImage(data: Malls.importer.dataFloorLc![indexPath.row]) // setting a var for our cell to contain picture for each row of cell
+                cell.floorButton.setBackgroundImage(images, for: .normal) // setting image from that var to each cell's button in each row
+                cell.floorName.text =  Malls.importer.lcfloornames![indexPath.row] // setting floornames label from global [var] to each cell of wach row
                 navBar.title = Malls.importer.lcname
                 dislabel.text = Malls.importer.lcdis
                 mallimage.image = UIImage(data: Malls.importer.imagelc!)
@@ -104,10 +120,10 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 dislabel.text = Malls.importer.gpdis
                 mallimage.image = UIImage(data: Malls.importer.imagegp!)
                 shopnumbercell = Malls.importer.gpfloors
+                
             default:
-                return
+                return UITableViewCell()
             }
-            
             
         }else if ViewController.myGlobalVar.region == "Delhi"{
             
@@ -152,23 +168,19 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 dislabel.text = Malls.importer.scdis
                 mallimage.image = UIImage(data: Malls.importer.imagesc!)
                 shopnumbercell = Malls.importer.scfloors
+
             default:
-                return
+                return UITableViewCell()
             }
-            
+        
         }
         
-    }
-    //table view stubs
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        shopnumbercell! // amount of cells to be presented  = floors in mall
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = detailTable.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! floorCell // custom cell
-        //  cell.backgroundColor = UIColor.systemRed
+        
+ 
         
         return cell
+        
+        
     }
     // function to turn string type address to a geolocation for directions in map
     func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {

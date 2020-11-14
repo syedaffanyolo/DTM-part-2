@@ -35,6 +35,8 @@ class SegueFromLeft: UIStoryboardSegue {
 
 class Malls: UIViewController {
     
+    //all variables here
+    var imageArr : [Data]? = []
     // all buttons for malls
     @IBOutlet var cards: [UIButton]!
     //ui view on which the loader is placed
@@ -191,13 +193,21 @@ class Malls: UIViewController {
                     /// dlf mall
                     self.cards[0].setTitle(json.dmname, for: .normal)
                     let dmurl = URL(string: json.dmmallimage)!
+                    
+                    //print(lcfloorurl)
                     if let datadm = try? Data(contentsOf: dmurl){
                         importer.dmdis = json.dmdis
                         importer.imagedm = datadm
                         importer.dmfloors = json.dmfloors
                         importer.dmname = json.dmname
+                        
                         self.cards[0].setBackgroundImage(UIImage(data: datadm), for: .normal)
                     }
+                    
+                    
+                    
+                    ///logix city
+                    
                     
                     self.cards[1].setTitle(json.lcname, for: .normal)
                     let lcurl = URL(string: json.lcmallimage)!
@@ -205,10 +215,37 @@ class Malls: UIViewController {
                         importer.lcdis = json.lcdis
                         importer.imagelc = datalc
                         importer.lcfloors = json.lcfloors
+                        importer.lcfloornames = json.lcfloornames
                         importer.lcname = json.lcname
+                        importer.lcfloorimg = json.lcfloorimages //getting all 3 url strings from json converted api
+                        //                        importer.lcshopnameslg = json.lcshopslg
+                        //                        importer.lcshopnamesg = json.lcshopg
+                        //                        importer.lcshopnames1 = json.lcshop1
+                        //                        importer.lcshopnames2 = json.lcshop2
+                        //                        importer.lcshopnames3 = json.lcshop3
+                        //                        importer.lcshopnames4 = json.lcshop4
                         self.cards[1].setBackgroundImage(UIImage(data: datalc), for: .normal)
                         
                     }
+                    let lcfloorurl = [URL(string: json.lcfloorimages[0])!,URL(string: json.lcfloorimages[1])!,URL(string: json.lcfloorimages[2])!] // getting the hold of only one url string and coverting it into url and setting it to a var for testing.
+                    for i in 0...2{ // getting one by one data from the array we make below
+                        
+                        if let imageData = try? Data(contentsOf: lcfloorurl[i]){
+                            
+                            
+                            
+                            self.imageArr?.append(imageData) // appending the data to our image array we made in starting of the file
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    importer.dataFloorLc = self.imageArr // setting the value of our global [var] to our nely ready image array
+                    
+                    
+                    
+                    
                     
                     self.cards[2].setTitle(json.ggname, for: .normal)
                     let ggurl = URL(string: json.ggmallimage)!
@@ -374,8 +411,12 @@ class Malls: UIViewController {
         static var andis : String? = nil
         static var oadis : String? = nil
         
+        
         //noida
         static var imagedm : Data? = nil
+        static var dataFloorLc : [Data]? = nil
+        //        static var dataFloorLc2 : Data? = nil
+        //        static var dataFloorLc3 : Data? = nil
         static var imagelc : Data? = nil
         static var imagegg : Data? = nil
         static var imagegp : Data? = nil
@@ -391,6 +432,15 @@ class Malls: UIViewController {
         static var lcdis : String? = nil
         static var ggdis : String? = nil
         static var gpdis : String? = nil
+        static var lcfloorimg : [String]? = nil
+        static var lcfloornames : [String]? = nil
+        //        static var lcshopnameslg : [String]? = nil
+        //        static var lcshopnamesg : [String]? = nil
+        //        static var lcshopnames1 : [String]? = nil
+        //        static var lcshopnames2 : [String]? = nil
+        //        static var lcshopnames3: [String]? = nil
+        //        static var lcshopnames4 : [String]? = nil
+        //
         
         //delhi
         static var imagevs : Data? = nil

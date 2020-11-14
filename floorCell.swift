@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Foundation
 
 class floorCell: UITableViewCell {
 //outlets
     @IBOutlet weak var floorButton: UIButton!
-    @IBOutlet weak var floorint: NSLayoutConstraint!
+    @IBOutlet weak var floorName: UILabel!
+    
     
     
     
@@ -20,5 +22,6 @@ class floorCell: UITableViewCell {
     }
     // shopsnextbutton
     @IBAction func shopsButton(_ sender: Any) {
+       
     }
 }
