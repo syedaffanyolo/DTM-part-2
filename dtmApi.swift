@@ -72,7 +72,12 @@ struct grNoida : Codable{
     let lcshop4:[String]
     let lcmallimage:String
     let lcid:Int
-    let lcshopphone:[Int]
+    let lcshopphonelg:[Int]
+    let lcshopphoneg:[Int]
+    let lcshopphone1:[Int]
+    let lcshopphone2:[Int]
+    let lcshopphone3:[Int]
+    let lcshopphone4:[Int]
     let lcshopnumbers:Int
     let lcfloorimages:[String]
     let lcfloornames:[String]

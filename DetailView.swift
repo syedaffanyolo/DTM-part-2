@@ -38,8 +38,8 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         //rendering all the detail for the selcted mall while the detail seque starts at first
         
         blurView.bounds = self.view.bounds
-                zoomView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width*0.9, height: self.view.bounds.height*0.8)
-                zoomView.layer.cornerRadius = 5
+        zoomView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width*0.9, height: self.view.bounds.height*0.8)
+        zoomView.layer.cornerRadius = 5
     }
     // navigation/map action
     @IBAction func navigationButton(_ sender: Any) {
@@ -126,8 +126,8 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 cell.shopButton.tag = indexPath.row // setting the shopbutton tag to indexpath.row which sets 3 int means 0...2
                 cell.shopButton.addTarget(self, action: #selector(shopstapped(_:)), for: .touchUpInside) // adding custom rtarget function refer to the func below
                 
-                cell.floorbuttonzoom.tag = indexPath.row
-                cell.floorbuttonzoom.addTarget(self, action: #selector(zoomTapped(_:)), for: .touchUpInside)
+                cell.floorbuttonzoom.tag = indexPath.row // setting floorbutton's tag to indexpath.row which sets 3 int means 0...2
+                cell.floorbuttonzoom.addTarget(self, action: #selector(zoomTapped(_:)), for: .touchUpInside)// adding functionality i.e ibaaction to this button refer to line ()
                 navBar.title = Malls.importer.lcname
                 dislabel.text = Malls.importer.lcdis
                 mallimage.image = UIImage(data: Malls.importer.imagelc!)
@@ -241,12 +241,13 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         
         
     }
+    //functionality i.e. ibaaction for our floorbutton when its tapped refer to line()
     @objc func zoomTapped(_ sender: UIButton){
-        let zoomButton = sender.tag
+        let zoomButton = sender.tag // this is equal to the tag of the button tapped whoch would be numbers from indexpath.row
         
-        Malls.importer.zoomsender = zoomButton
-       animateScaleIn(desiredView: blurView)
-        animateScaleIn(desiredView: zoomView)
+        Malls.importer.zoomsender = zoomButton // setting that tag to global level
+        animateScaleIn(desiredView: blurView) // animating our zoom view for blur first
+        animateScaleIn(desiredView: zoomView) // animitaing the actual view now 
         
     }
     
@@ -254,24 +255,24 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
     ///animation functions
     
     /// Animates a view to scale in and display
-       func animateScaleIn(desiredView: UIView) {
-        var i = Malls.importer.zoomsender
-        zoomImage.image = UIImage(data: Malls.importer.dataFloorLc![i!])
+    func animateScaleIn(desiredView: UIView) {
+        var i = Malls.importer.zoomsender // checking which floor wwas clicked by the help of thsi global sender
+        zoomImage.image = UIImage(data: Malls.importer.dataFloorLc![i!]) // tapping inot the image array and setting the image of the zoomed in view image
         
-           let backgroundView = self.view!
-           backgroundView.addSubview(desiredView)
-           desiredView.center = backgroundView.center
-           desiredView.isHidden = false
-
-           desiredView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-           desiredView.alpha = 0
-
-           UIView.animate(withDuration: 0.2) {
-               desiredView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-               desiredView.alpha = 1
-   //            desiredView.transform = CGAffineTransform.identity
-           }
-       }
+        let backgroundView = self.view!
+        backgroundView.addSubview(desiredView)
+        desiredView.center = backgroundView.center
+        desiredView.isHidden = false
+        
+        desiredView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        desiredView.alpha = 0
+        
+        UIView.animate(withDuration: 0.2) {
+            desiredView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            desiredView.alpha = 1
+            //            desiredView.transform = CGAffineTransform.identity
+        }
+    }
     
     /// Animates a view to scale out remove from the display
     func animateScaleOut(desiredView: UIView) {
@@ -281,11 +282,11 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         }, completion: { (success: Bool) in
             desiredView.removeFromSuperview()
         })
-
+        
         UIView.animate(withDuration: 0.2, animations: {
-
+            
         }, completion: { _ in
-
+            
         })
     }
     

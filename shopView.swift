@@ -24,7 +24,7 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
         
         // here add the calling the shops functionality
         
-            
+        
         
     }
     
@@ -69,6 +69,8 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
         return cell
     }
     
+    
+    
     @objc func callClicked(_ sender: UIButton){
         
         let callButton = sender.tag
@@ -83,7 +85,7 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
                 print("lol") // no data so dummy code
             case 1: // logix mall (got the data for this one)
                 if Malls.importer.floorsender == 0{ // checking which floor is clicked in this mall
-                   
+                    
                     for calltag in 0...3{
                         if Malls.importer.callsender == calltag{
                             var phone = Malls.importer.phoneNumberslg![calltag]
@@ -95,7 +97,7 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
                 }else if Malls.importer.floorsender == 1{
                     
                 }else if Malls.importer.floorsender == 2{
-                   
+                    
                 }
             case 2:
                 print("lol")

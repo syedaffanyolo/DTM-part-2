@@ -204,7 +204,7 @@ class Malls: UIViewController {
                         importer.lcshopnames2 = json.lcshop2 // 2nd
                         importer.lcshopnames3 = json.lcshop3 // 3rd
                         importer.lcshopnames4 = json.lcshop4 // 4th
-                        importer.phoneNumberslg = json.lcshopphone
+                        importer.phoneNumberslg = json.lcshopphonelg // getting all the phone numbers in lg floor into this array
                         self.cards[1].setBackgroundImage(UIImage(data: datalc), for: .normal)
                         
                     }
