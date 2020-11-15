@@ -21,6 +21,11 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
     @IBOutlet weak var navigation: UIButton!
     @IBOutlet weak var dislabel: UILabel!
     @IBOutlet weak var mallimage: UIImageView!
+    @IBOutlet weak var zoomImage: UIImageView!
+    @IBOutlet var zoomView: UIView!
+    @IBOutlet var blurView: UIVisualEffectView!
+    
+    
     
     var shopnumbercell : Int? = nil // cell amount variable to be used later
     
@@ -32,7 +37,9 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         detailTable.dataSource = self
         //rendering all the detail for the selcted mall while the detail seque starts at first
         
-        
+        blurView.bounds = self.view.bounds
+                zoomView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width*0.9, height: self.view.bounds.height*0.8)
+                zoomView.layer.cornerRadius = 5
     }
     // navigation/map action
     @IBAction func navigationButton(_ sender: Any) {
@@ -48,6 +55,16 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         }
         
     }
+    
+    
+    @IBAction func cancelZoomClicked(_ sender: Any) {
+        
+        animateScaleOut(desiredView: zoomView)
+        animateScaleOut(desiredView: blurView)
+        
+    }
+    
+    
     // big boss 2 lies here
     
     //table view stubs
@@ -108,6 +125,9 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 cell.floorName.text =  Malls.importer.lcfloornames![indexPath.row]// setting floornames label from global [var] to each cell of wach row
                 cell.shopButton.tag = indexPath.row // setting the shopbutton tag to indexpath.row which sets 3 int means 0...2
                 cell.shopButton.addTarget(self, action: #selector(shopstapped(_:)), for: .touchUpInside) // adding custom rtarget function refer to the func below
+                
+                cell.floorbuttonzoom.tag = indexPath.row
+                cell.floorbuttonzoom.addTarget(self, action: #selector(zoomTapped(_:)), for: .touchUpInside)
                 navBar.title = Malls.importer.lcname
                 dislabel.text = Malls.importer.lcdis
                 mallimage.image = UIImage(data: Malls.importer.imagelc!)
@@ -220,6 +240,53 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
         Malls.importer.floorsender = button // setting sender.tag to our foorsender which is  global so can be used and initalized anywhere.
         
         
+    }
+    @objc func zoomTapped(_ sender: UIButton){
+        let zoomButton = sender.tag
+        
+        Malls.importer.zoomsender = zoomButton
+       animateScaleIn(desiredView: blurView)
+        animateScaleIn(desiredView: zoomView)
+        
+    }
+    
+    
+    ///animation functions
+    
+    /// Animates a view to scale in and display
+       func animateScaleIn(desiredView: UIView) {
+        var i = Malls.importer.zoomsender
+        zoomImage.image = UIImage(data: Malls.importer.dataFloorLc![i!])
+        
+           let backgroundView = self.view!
+           backgroundView.addSubview(desiredView)
+           desiredView.center = backgroundView.center
+           desiredView.isHidden = false
+
+           desiredView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+           desiredView.alpha = 0
+
+           UIView.animate(withDuration: 0.2) {
+               desiredView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+               desiredView.alpha = 1
+   //            desiredView.transform = CGAffineTransform.identity
+           }
+       }
+    
+    /// Animates a view to scale out remove from the display
+    func animateScaleOut(desiredView: UIView) {
+        UIView.animate(withDuration: 0.2, animations: {
+            desiredView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            desiredView.alpha = 0
+        }, completion: { (success: Bool) in
+            desiredView.removeFromSuperview()
+        })
+
+        UIView.animate(withDuration: 0.2, animations: {
+
+        }, completion: { _ in
+
+        })
     }
     
 }

@@ -652,6 +652,7 @@
                                                 <connections>
                                                     <outlet property="floorButton" destination="FL5-Fm-ixh" id="NVi-8k-302"/>
                                                     <outlet property="floorName" destination="JbH-2H-qg1" id="gp8-l1-CGm"/>
+                                                    <outlet property="floorbuttonzoom" destination="FL5-Fm-ixh" id="hBV-13-usv"/>
                                                     <outlet property="shopButton" destination="BwM-S9-4kP" id="lZe-67-qcJ"/>
                                                 </connections>
                                             </tableViewCell>
@@ -690,14 +691,58 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="blurView" destination="vab-Hj-RG1" id="33b-BE-M02"/>
                         <outlet property="detailTable" destination="S6v-2R-bBq" id="ZEq-7L-1kx"/>
                         <outlet property="dislabel" destination="0np-lo-2bT" id="9ma-sP-z5Z"/>
                         <outlet property="mallimage" destination="De5-Ja-5lZ" id="ECw-X6-zqf"/>
                         <outlet property="navBar" destination="HFj-MW-gxQ" id="x3h-fQ-LHk"/>
                         <outlet property="navigation" destination="OUk-qT-exz" id="M5l-vn-xyH"/>
+                        <outlet property="zoomImage" destination="ZL4-dV-11z" id="8aG-KA-kjy"/>
+                        <outlet property="zoomView" destination="aca-gb-dLD" id="26A-Nc-iL0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i8v-TW-DEP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" id="vab-Hj-RG1">
+                    <rect key="frame" x="0.0" y="0.0" width="374" height="239"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9au-zO-CN0">
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="239"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+                <view contentMode="scaleToFill" id="aca-gb-dLD">
+                    <rect key="frame" x="0.0" y="0.0" width="345" height="238"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dancing-banana.gif" translatesAutoresizingMaskIntoConstraints="NO" id="ZL4-dV-11z">
+                            <rect key="frame" x="0.0" y="0.0" width="345" height="238"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLt-8c-p4d">
+                            <rect key="frame" x="11" y="10" width="26" height="23"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="23" id="e3x-19-SjQ"/>
+                                <constraint firstAttribute="width" constant="26" id="ql9-m3-q0Q"/>
+                            </constraints>
+                            <color key="tintColor" red="0.94117647059999998" green="0.54117647059999996" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal">
+                                <imageReference key="image" image="xmark.octagon.fill" catalog="system" symbolScale="large"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelZoomClicked:" destination="JQo-Bh-Sa0" eventType="touchUpInside" id="L9c-lI-dcC"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="hSf-u0-vgS"/>
+                    <constraints>
+                        <constraint firstItem="ZL4-dV-11z" firstAttribute="trailing" secondItem="hSf-u0-vgS" secondAttribute="trailing" id="0NZ-UP-XwC"/>
+                        <constraint firstItem="VLt-8c-p4d" firstAttribute="top" secondItem="aca-gb-dLD" secondAttribute="top" constant="10" id="4Nc-7a-lgf"/>
+                        <constraint firstItem="ZL4-dV-11z" firstAttribute="top" secondItem="hSf-u0-vgS" secondAttribute="top" id="7IM-tH-eqb"/>
+                        <constraint firstItem="ZL4-dV-11z" firstAttribute="bottom" secondItem="hSf-u0-vgS" secondAttribute="bottom" id="Vqq-iS-oBv"/>
+                        <constraint firstItem="ZL4-dV-11z" firstAttribute="leading" secondItem="hSf-u0-vgS" secondAttribute="leading" id="o8P-56-KDA"/>
+                        <constraint firstItem="VLt-8c-p4d" firstAttribute="leading" secondItem="hSf-u0-vgS" secondAttribute="leading" constant="11" id="pIn-vn-T5E"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="246" y="-536"/>
         </scene>
@@ -718,7 +763,7 @@
                                         <color key="tintColor" red="0.93333333330000001" green="0.92549019610000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <color key="sectionIndexBackgroundColor" red="0.93333333330000001" green="0.92549019610000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="shopid" rowHeight="111" id="kY3-Us-vYH" customClass="shopCell" customModule="DTM" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="shopid" rowHeight="111" id="kY3-Us-vYH" customClass="shopCell" customModule="DTM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="111"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kY3-Us-vYH" id="X9P-un-nvd">
@@ -732,7 +777,7 @@
                                                                 <constraint firstAttribute="width" constant="300" id="5Ql-LU-duK"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" red="0.93333333330000001" green="0.92549019610000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </label>
@@ -742,7 +787,7 @@
                                                                 <constraint firstAttribute="height" constant="52" id="62I-jr-sBA"/>
                                                                 <constraint firstAttribute="width" constant="38" id="OkY-No-jCC"/>
                                                             </constraints>
-                                                            <color key="tintColor" systemColor="systemGreenColor"/>
+                                                            <color key="tintColor" red="0.0010788390765925763" green="0.62302909929727779" blue="0.15656640413176387" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <state key="normal">
                                                                 <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <imageReference key="image" image="phone.fill" catalog="system" symbolScale="large"/>
@@ -762,8 +807,10 @@
                                                         <constraint firstItem="CIn-ZJ-1vV" firstAttribute="leading" secondItem="X9P-un-nvd" secondAttribute="leadingMargin" id="u46-YL-e9i"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <color key="backgroundColor" red="0.93333333330000001" green="0.92549019610000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.94117647059999998" green="0.54117647059999996" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" name="AccentColor"/>
                                                 <connections>
+                                                    <outlet property="callshop" destination="WtW-N1-WFe" id="TM8-6v-3pN"/>
                                                     <outlet property="shopname" destination="CIn-ZJ-1vV" id="NQU-Og-OXM"/>
                                                 </connections>
                                             </tableViewCell>
@@ -879,22 +926,24 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uzH-1h-2s6"/>
-        <segue reference="xt1-ZP-HJf"/>
+        <segue reference="qcj-9H-5I3"/>
+        <segue reference="dVq-mq-5gq"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.forward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="dancing-banana.gif" width="365" height="360"/>
         <image name="location.fill" catalog="system" width="128" height="121"/>
         <image name="phone.fill" catalog="system" width="128" height="114"/>
+        <image name="xmark.octagon.fill" catalog="system" width="128" height="112"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

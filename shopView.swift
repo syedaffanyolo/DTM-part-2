@@ -24,6 +24,8 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
         
         // here add the calling the shops functionality
         
+            
+        
     }
     
     
@@ -45,6 +47,8 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
             case 1: // logix mall (got the data for this one)
                 if Malls.importer.floorsender == 0{ // checking which floor is clicked in this mall
                     cell.shopname.text = Malls.importer.lcshopnameslg![indexPath.row] // implementing the shops in the specif floord to the shop cells
+                    cell.callshop.tag = indexPath.row
+                    cell.callshop.addTarget(self, action: #selector(callClicked(_:)), for: .touchUpInside)
                 }else if Malls.importer.floorsender == 1{
                     cell.shopname.text = Malls.importer.lcshopnamesg![indexPath.row]
                 }else if Malls.importer.floorsender == 2{
@@ -65,5 +69,50 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
         return cell
     }
     
+    @objc func callClicked(_ sender: UIButton){
+        
+        let callButton = sender.tag
+        
+        Malls.importer.callsender = callButton
+        
+        
+        if ViewController.myGlobalVar.region == "Noida"{// checking region
+            
+            switch Malls.importer.sender {// checking which mall is selected in that region
+            case 0: // dlf mall
+                print("lol") // no data so dummy code
+            case 1: // logix mall (got the data for this one)
+                if Malls.importer.floorsender == 0{ // checking which floor is clicked in this mall
+                   
+                    for calltag in 0...3{
+                        if Malls.importer.callsender == calltag{
+                            var phone = Malls.importer.phoneNumberslg![calltag]
+                            guard let number = URL(string: "tel://" + "\(phone)") else { return }
+                            UIApplication.shared.open(number)
+                        }
+                    }
+                    
+                }else if Malls.importer.floorsender == 1{
+                    
+                }else if Malls.importer.floorsender == 2{
+                   
+                }
+            case 2:
+                print("lol")
+            case 3:
+                print("lol")
+                
+            default:
+                return
+            }
+        }
+        
+        
+        
+        print("calling")
+        
+        
+        
+    }
     
 }

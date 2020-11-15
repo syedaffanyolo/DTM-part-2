@@ -11,5 +11,6 @@ class shopCell: UITableViewCell {
     
     @IBOutlet weak var shopname: UILabel!
     
+    @IBOutlet weak var callshop: UIButton!
     
 }

@@ -13,6 +13,7 @@ class floorCell: UITableViewCell {
     @IBOutlet weak var floorButton: UIButton! // button for the floor plan zoom in
     @IBOutlet weak var floorName: UILabel! // floor name
     @IBOutlet weak var shopButton: UIButton! // shops in the floor button
+    @IBOutlet weak var floorbuttonzoom: UIButton!
     
     
     

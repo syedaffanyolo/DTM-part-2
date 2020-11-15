@@ -204,6 +204,7 @@ class Malls: UIViewController {
                         importer.lcshopnames2 = json.lcshop2 // 2nd
                         importer.lcshopnames3 = json.lcshop3 // 3rd
                         importer.lcshopnames4 = json.lcshop4 // 4th
+                        importer.phoneNumberslg = json.lcshopphone
                         self.cards[1].setBackgroundImage(UIImage(data: datalc), for: .normal)
                         
                     }
@@ -375,6 +376,10 @@ class Malls: UIViewController {
         static var sender : Int? = nil
         // global floorsender.tag
         static var floorsender : Int? = nil
+        // global zoomsender.tag
+        static var zoomsender : Int? = nil
+        //global callsender.tag
+        static var callsender : Int? = nil
         //gr noida
         static var imagegrv : Data? = nil
         static var imageomx : Data? = nil
@@ -397,8 +402,9 @@ class Malls: UIViewController {
         //noida
         static var imagedm : Data? = nil
         static var dataFloorLc : [Data]? = nil // array contains all the floors in lc i.e. logix city noida
-        //        static var dataFloorLc2 : Data? = nil
-        //        static var dataFloorLc3 : Data? = nil
+        static var phoneNumberslg : [Int]? = nil
+        static var phoneNumbersg : [Int]? = nil
+        static var phoneNumbers1 : [Int]? = nil
         static var imagelc : Data? = nil
         static var imagegg : Data? = nil
         static var imagegp : Data? = nil
