@@ -844,6 +844,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="navbar" destination="snI-aN-1t8" id="SJP-c6-T5C"/>
                         <outlet property="shopTable" destination="b8z-K4-rvL" id="gjw-g9-VNS"/>
                     </connections>
                 </viewController>

@@ -11,6 +11,7 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
     
     //outlets
     @IBOutlet weak var shopTable: UITableView!
+    @IBOutlet weak var navbar: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +45,9 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
             switch Malls.importer.sender {// checking which mall is selected in that region
             case 0: // dlf mall
                 print("lol") // no data so dummy code
+                navbar.title = "DLF Mall"
             case 1: // logix mall (got the data for this one)
+                navbar.title = "Logix City"
                 if Malls.importer.floorsender == 0{ // checking which floor is clicked in this mall
                     cell.shopname.text = Malls.importer.lcshopnameslg![indexPath.row] // implementing the shops in the specif floord to the shop cells
                     cell.callshop.tag = indexPath.row
@@ -55,8 +58,10 @@ class shopView: UIViewController, UITableViewDelegate,  UITableViewDataSource {
                     cell.shopname.text = Malls.importer.lcshopnames1![indexPath.row]
                 }
             case 2:
+                navbar.title = "Garden Galleria"
                 print("lol")
             case 3:
+                navbar.title = "GIP Mall"
                 print("lol")
                 
             default:
