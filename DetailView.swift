@@ -89,22 +89,22 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 //setting nav title
                 navBar.title = Malls.importer.gvname //setting navbar title to the mall name
                 dislabel.text = Malls.importer.gvdis //setting address to mall address
-                mallimage.image = UIImage(data: Malls.importer.imagegrv!)//gr venice data holidng image
+                mallimage.image = UIImage(data: Malls.importer.dataimg![0])//gr venice data holidng image
                 shopnumbercell = Malls.importer.gvfloors // setting floors for this mall in a variable so that it could be used in cell amount proptional to floors
             case 1:
                 navBar.title = Malls.importer.msname
                 dislabel.text = Malls.importer.msdis
-                mallimage.image = UIImage(data: Malls.importer.imagemsx!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![1])
                 shopnumbercell = Malls.importer.msfloors
             case 2:
                 navBar.title = Malls.importer.anname
                 dislabel.text = Malls.importer.andis
-                mallimage.image = UIImage(data: Malls.importer.imageans!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![2])
                 shopnumbercell = Malls.importer.anfloors
             case 3:
                 navBar.title = Malls.importer.oaname
                 dislabel.text = Malls.importer.oadis
-                mallimage.image = UIImage(data: Malls.importer.imageomx!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![3])
                 shopnumbercell = Malls.importer.omfloors
                 
             default:
@@ -117,7 +117,7 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
             case 0:
                 navBar.title = Malls.importer.dmname
                 dislabel.text = Malls.importer.dmdis
-                mallimage.image = UIImage(data: Malls.importer.imagedm!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![0])
                 shopnumbercell = Malls.importer.dmfloors
             case 1:
                 let images = UIImage(data: Malls.importer.dataFloorLc![indexPath.row]) // setting a var for our cell to contain picture for each row of cell
@@ -130,17 +130,17 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
                 cell.floorbuttonzoom.addTarget(self, action: #selector(zoomTapped(_:)), for: .touchUpInside)// adding functionality i.e ibaaction to this button refer to line ()
                 navBar.title = Malls.importer.lcname
                 dislabel.text = Malls.importer.lcdis
-                mallimage.image = UIImage(data: Malls.importer.imagelc!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![1])
                 shopnumbercell = Malls.importer.lcfloors
             case 2:
                 navBar.title = Malls.importer.ggname
                 dislabel.text = Malls.importer.ggdis
-                mallimage.image = UIImage(data: Malls.importer.imagegg!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![2])
                 shopnumbercell = Malls.importer.ggfloors
             case 3:
                 navBar.title = Malls.importer.gpname
                 dislabel.text = Malls.importer.gpdis
-                mallimage.image = UIImage(data: Malls.importer.imagegp!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![3])
                 shopnumbercell = Malls.importer.gpfloors
                 
             default:
@@ -152,42 +152,42 @@ class DetailView: UIViewController, UITableViewDelegate,  UITableViewDataSource 
             case 0:
                 navBar.title = Malls.importer.vsname
                 dislabel.text = Malls.importer.vsdis
-                mallimage.image = UIImage(data: Malls.importer.imagevs!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![0])
                 shopnumbercell = Malls.importer.vsfloors
             case 1:
                 navBar.title = Malls.importer.tcname
                 dislabel.text = Malls.importer.tcdis
-                mallimage.image = UIImage(data: Malls.importer.imagetc!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![1])
                 shopnumbercell = Malls.importer.tcfloors
             case 2:
                 navBar.title = Malls.importer.ccname
                 dislabel.text = Malls.importer.ccdis
-                mallimage.image = UIImage(data: Malls.importer.imagecc!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![2])
                 shopnumbercell = Malls.importer.ccfloors
             case 3:
                 navBar.title = Malls.importer.cmname
                 dislabel.text = Malls.importer.cmdis
-                mallimage.image = UIImage(data: Malls.importer.imagecm!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![3])
                 shopnumbercell = Malls.importer.cmfloors
             case 4:
                 navBar.title = Malls.importer.dsname
                 dislabel.text = Malls.importer.dsdis
-                mallimage.image = UIImage(data: Malls.importer.imageds!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![4])
                 shopnumbercell = Malls.importer.dsfloors
             case 5:
                 navBar.title = Malls.importer.amname
                 dislabel.text = Malls.importer.amdis
-                mallimage.image = UIImage(data: Malls.importer.imageam!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![5])
                 shopnumbercell = Malls.importer.amfloors
             case 6:
                 navBar.title = Malls.importer.pmname
                 dislabel.text = Malls.importer.pmdis
-                mallimage.image = UIImage(data: Malls.importer.imagepm!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![6])
                 shopnumbercell = Malls.importer.pmfloors
             case 7:
                 navBar.title = Malls.importer.scname
                 dislabel.text = Malls.importer.scdis
-                mallimage.image = UIImage(data: Malls.importer.imagesc!)
+                mallimage.image = UIImage(data: Malls.importer.dataimg![7])
                 shopnumbercell = Malls.importer.scfloors
                 
             default:

@@ -12,12 +12,21 @@ import UIKit
 let url = "https://dtmappapi.herokuapp.com/data"
 
 
-class Malls: UIViewController {
+class Malls: UIViewController, UITableViewDelegate,  UITableViewDataSource {
+    
+    
     
     //all variables here
     var imageArr : [Data]? = []
-    // all buttons for malls
-    @IBOutlet var cards: [UIButton]!
+    var imageArrForLc : [Data]? = []
+    var titleArraygn : [String]? = []
+    var titleArrayn : [String]? = []
+    var titleArrayd : [String]? = []
+    
+    //table view outlet
+    @IBOutlet weak var mallTableView: UITableView!
+    
+    
     //ui view on which the loader is placed
     @IBOutlet weak var loderView: UIView!
     // loader duh
@@ -25,7 +34,7 @@ class Malls: UIViewController {
     //outlet for nav bar to change titles
     @IBOutlet weak var navBar: UINavigationItem!
     // scroll lenght changer so all button are hide and used when needed/ basically acesses the lenght feature /height of the view
-    @IBOutlet weak var viewHeight: NSLayoutConstraint!
+    
     // prefered light or dark = dark
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -33,46 +42,58 @@ class Malls: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // getting api data back iwth rendering all styles
-        // litereally rendering everytrhing here
-        render(url: url)
-        
-    }
-    
-    //button actions
-    
-    @IBAction func bb(_ sender: UIButton) {
-        // sets the value of the global variable sender to the current clicked button's sender.tag
-        importer.sender = sender.tag
-        //after setting value we perform the detailview segue and populate it with the right data
-        performSegue(withIdentifier: "detail", sender: self)
-        
-        
-    }
-    
-    // back swipe gesture action
-    @IBAction func backswipe(_ sender: Any) {
-        //performSegue(withIdentifier: "main", sender: (Any).self)
-    }
-    
-    
-    // big boss lies here
-    func render(url:String){
-        // starts animating our loader while the app gets all the relevent data we mention below now
+        // setting delgate and datasource for table view
+        mallTableView.delegate = self
+        mallTableView.dataSource = self
+        // making seprator for cells clear colour
+        self.mallTableView.separatorColor = .clear
+        // starting loading
         loder.startAnimating()
-        
+        // blank title for nav
         navBar.title = ""
-        // setting all the styles for our buttons
-        for i in 0...15{
-            cards[i].layer.cornerRadius = 10
-            cards[i].titleLabel!.layer.shadowOffset = CGSize(width: 2.0, height: 2.0);
-            cards[i].titleLabel!.layer.shadowRadius = 2.0;
-            cards[i].titleLabel!.layer.shadowOpacity = 1.0;
-            cards[i].titleLabel!.layer.masksToBounds = false;
+    }
+    
+    
+    
+    
+    // main code table view
+    
+    // number of rows for each region i.e nummber of malls in each region are hardcoded here
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var value : Int? = nil
+        if ViewController.myGlobalVar.region == "Greater Noida"{
+            value = 4
+        }else if ViewController.myGlobalVar.region == "Noida"{
+            value = 4
+        }else if ViewController.myGlobalVar.region == "Delhi"{
+            value = 8
         }
-        // url session to get data back from the api into readable format
+        return value!
+    }
+    
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {data, response, error in
+        // custom cell for our table view
+        let cell = mallTableView.dequeueReusableCell(withIdentifier: "mallcells", for: indexPath) as! MallCells
+        // cusrtom cell styles
+        DispatchQueue.main.async {
+            
+            cell.mallbutton.layer.cornerRadius = 10
+            cell.mallbutton.titleLabel!.layer.shadowOffset = CGSize(width: 2.0, height: 2.0);
+            cell.mallbutton.titleLabel!.layer.shadowRadius = 2.0;
+            cell.mallbutton.titleLabel!.layer.shadowOpacity = 1.0;
+            cell.mallbutton.titleLabel!.layer.masksToBounds = false;
+            cell.mallbutton.layer.opacity = 0.9
+            cell.mallbutton.tag = indexPath.row
+            cell.mallbutton.addTarget(self, action: #selector(self.mallTapped(_:)), for: .touchUpInside)
+            
+        }
+        
+        //networking to get api data
+        let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { [self]data, response, error in
             guard let data = data, error == nil else{
                 print("somthin wrong")
                 return
@@ -88,290 +109,236 @@ class Malls: UIViewController {
                 
                 return
             }
-            // end of the request for api here
             
-            // populating data on the button views!
+            
+            /// intializing our gloabl variables to the retrivied data from the api
+            
+            
+            //name of malls in gr noida
+            importer.mallsingr = [json.gvname,json.mmname,json.apname,json.oaname]
+            //name of malls in noida
+            importer.mallsinn = [json.dmname,json.lcname,json.ggname,json.gpname]
+            //name of malls in delhi
+            importer.mallsind = [json.vsname,json.tcname,json.ccname,json.cmname,json.dsname,json.amname,json.pmname,json.scname]
+            //images of malls in gr noida
+            importer.mallsingrimg = [json.gvmallimage,json.mmmallimage,json.apmallimage,json.oamallimage]
+            //images of malls in noida
+            importer.mallsinnimg = [json.dmmallimage,json.lcmallimage,json.ggmallimage,json.gpmallimage]
+            //images of malls in delhi
+            importer.mallsindimg = [json.vsmallimage,json.tcmallimage,json.ccmallimage,json.cmmallimage,json.dsmallimage,json.ammallimage,json.pmmallimage,json.scmallimage]
+            
+            // floor images for logix city noida in url from retrived from api as string
+            let lcfloorurl = [URL(string: json.lcfloorimages[0])!,URL(string: json.lcfloorimages[1])!,URL(string: json.lcfloorimages[2])!] // getting the hold of only one
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            /// populating data on the cell's button!
+            
+            
+            
+            
+            // checking selected region
             if ViewController.myGlobalVar.region == "Greater Noida"{
-                // doing this on the main thread in necessary
-                DispatchQueue.main.async { [self] in
-                    
-                    navBar.title = "Malls in Greater Noida"
-                    // since we have four malls here so the relvant hight taken by the four cards will be 1200 rest 14 buttons will be hidden
-                    viewHeight.constant = 1200
-                    // here is where we hide the rest buttons because we dont need them unlees somone decide to make a new mall in greater noida lol
-                    for i in 4...15{
-                        cards[i].isHidden = true
-                        cards[i].isEnabled = false
+                
+                // taking global var of [string] and converting into url with indexpath as index of the array
+                let imgurl = URL(string: importer.mallsingrimg![indexPath.row])!
+                // converting the var to data
+                if let data = try? Data(contentsOf: imgurl ){
+                    //appending all the data we get everytime this indexpath loop executes into an [data]
+                    imageArr?.append(data)
+                    // setting the array to gloabal level
+                    importer.dataimg = imageArr
+                    //performing all ui on main thread
+                    DispatchQueue.main.async {
+                        //ensuring this line of code runs only once because there is no need to run thsi in loop everytime
+                        if indexPath.row == 0 {
+                            navBar.title = "Malls in Greater Noida"
+                        }
+                        // setting the title with the help of our global var initiloiazed previously, here we do it with thehelp of indexpath
+                        cell.mallbutton.setTitle(importer.mallsingr![indexPath.row], for: .normal)
+                        
+                        // setting the backimagiee of button to the data we get evertime in the loop
+                        cell.mallbutton.setBackgroundImage(UIImage(data: data), for: .normal)
+                        //stoping the loader while ensuring the loop has ended
+                        if indexPath.row == 3{
+                            loderfu()
+                        }
                     }
                     
-                    /// grand venice
-                    //setting title
-                    self.cards[0].setTitle(json.gvname, for: .normal)
-                    //converting the image string we got from the api to a url then data
-                    let grvurl = URL(string: json.gvmallimage)!
-                    if let datagr = try? Data(contentsOf: grvurl){
-                        //setting the global variable to the image of this mall to be used in detailView,mall name,mall adress and the floor numbers
-                        importer.gvdis = json.gvdis
-                        importer.imagegrv = datagr
-                        importer.gvfloors = json.gvfloors
+                    //setting all the needed data to global lvl to be used in other view
+                    
+                    if indexPath.row == 0 {
+                        
                         importer.gvname = json.gvname
-                        //setting the backgroung image as retrived data
-                        self.cards[0].setBackgroundImage(UIImage(data: datagr), for: .normal)
+                        importer.gvdis = json.gvdis
+                        importer.gvfloors = json.gvfloors
                         
-                    }
-                    
-                    /// msxmall
-                    self.cards[1].setTitle(json.mmname, for: .normal)
-                    let msxurl = URL(string: json.mmmallimage)!
-                    if let datamm = try? Data(contentsOf: msxurl){
-                        importer.msdis = json.mmdis
-                        importer.imagemsx = datamm
-                        importer.msfloors = json.mmfloors
                         importer.msname = json.mmname
-                        self.cards[1].setBackgroundImage(UIImage(data: datamm), for: .normal)
-                    }
-                    
-                    /// ansalplaza
-                    self.cards[2].setTitle(json.apname, for: .normal)
-                    let ansurl = URL(string: json.apmallimage)!
-                    if let dataap = try? Data(contentsOf: ansurl){
-                        importer.andis = json.apdis
-                        importer.imageans = dataap
-                        importer.anfloors = json.apfloors
+                        importer.msdis = json.mmdis
+                        importer.msfloors = json.mmfloors
+                        
                         importer.anname = json.apname
-                        self.cards[2].setBackgroundImage(UIImage(data: dataap), for: .normal)
-                    }
-                    
-                    ///omaxearcade
-                    self.cards[3].setTitle(json.oaname, for: .normal)
-                    let omxurl = URL(string: json.oamallimage)!
-                    if let dataoa = try? Data(contentsOf: omxurl){
-                        importer.oadis = json.oadis
-                        importer.imageomx = dataoa
-                        importer.omfloors = json.oafloors
+                        importer.andis = json.apdis
+                        importer.anfloors = json.apfloors
+                        
                         importer.oaname = json.oaname
-                        self.cards[3].setBackgroundImage(UIImage(data: dataoa), for: .normal)
+                        importer.oadis = json.oadis
+                        importer.omfloors = json.oafloors
                     }
-                    //stop animating then hide the loader and uiview its on and its capabilites so that elemnts beind it are accessable , since we have retrieved all the data we need for this mall we can stop the loading stuff
-                    self.loder.stopAnimating()
-                    self.loder.isHidden = true
-                    loder.isUserInteractionEnabled = false
-                    loderView.isExclusiveTouch = false
-                    loderView.isUserInteractionEnabled = false
                 }
+                
+                
+                
+                
+                
+                
+                
             }else if ViewController.myGlobalVar.region == "Noida"{
-                // show noida stuff
-                DispatchQueue.main.async {
+                
+                let imgurl = URL(string: importer.mallsinnimg![indexPath.row])!
+                if let data = try? Data(contentsOf: imgurl ){
                     
-                    self.navBar.title = "Malls in Noida"
-                    self.viewHeight.constant = 1200
-                    for i in 4...15{
-                        self.cards[i].isHidden = true
-                        self.cards[i].isEnabled = false
-                    }
-                    
-                    /// dlf mall
-                    self.cards[0].setTitle(json.dmname, for: .normal)
-                    let dmurl = URL(string: json.dmmallimage)!
-                    
-                    //print(lcfloorurl)
-                    if let datadm = try? Data(contentsOf: dmurl){
-                        importer.dmdis = json.dmdis
-                        importer.imagedm = datadm
-                        importer.dmfloors = json.dmfloors
-                        importer.dmname = json.dmname
-                        
-                        self.cards[0].setBackgroundImage(UIImage(data: datadm), for: .normal)
-                    }
-                    
-                    
-                    
-                    ///logix city
-                    
-                    
-                    self.cards[1].setTitle(json.lcname, for: .normal)
-                    let lcurl = URL(string: json.lcmallimage)!
-                    if let datalc = try? Data(contentsOf: lcurl){
-                        importer.lcdis = json.lcdis // mall addrss
-                        importer.imagelc = datalc // mall image
-                        importer.lcfloors = json.lcfloors // mall floors int
-                        importer.lcfloornames = json.lcfloornames // malls floornames
-                        importer.lcname = json.lcname // mall name
-                        importer.lcfloorimg = json.lcfloorimages //getting all 3 url strings from json converted api
-                        importer.lcshopnameslg = json.lcshopslg // shops in lower ground
-                        importer.lcshopnamesg = json.lcshopg // shops in ground
-                        importer.lcshopnames1 = json.lcshop1 // shops in 1st floor
-                        importer.lcshopnames2 = json.lcshop2 // 2nd
-                        importer.lcshopnames3 = json.lcshop3 // 3rd
-                        importer.lcshopnames4 = json.lcshop4 // 4th
-                        importer.phoneNumberslg = json.lcshopphonelg // getting all the phone numbers in lg floor into this array
-                        self.cards[1].setBackgroundImage(UIImage(data: datalc), for: .normal)
-                        
-                    }
-                    let lcfloorurl = [URL(string: json.lcfloorimages[0])!,URL(string: json.lcfloorimages[1])!,URL(string: json.lcfloorimages[2])!] // getting the hold of only one url string and coverting it into url and setting it to a var for testing.
-                    for i in 0...2{ // getting one by one data from the array we make below
-                        
-                        if let imageData = try? Data(contentsOf: lcfloorurl[i]){
-                            
-                            
-                            
-                            self.imageArr?.append(imageData) // appending the data to our image array we made in starting of the file
-                            
-                            
+                    imageArr?.append(data)
+                    importer.dataimg = imageArr
+                    DispatchQueue.main.async {
+                        if indexPath.row == 0{
+                            navBar.title = "Malls in Noida"
                         }
                         
-                    }
-                    
-                    importer.dataFloorLc = self.imageArr // setting the value of our global [var] to our nely ready image array
-                    
-                    
-                    
-                    
-                    
-                    self.cards[2].setTitle(json.ggname, for: .normal)
-                    let ggurl = URL(string: json.ggmallimage)!
-                    if let datagg = try? Data(contentsOf: ggurl){
-                        importer.ggdis = json.ggdis
-                        importer.imagegg = datagg
-                        importer.ggfloors = json.ggfloors
-                        importer.ggname = json.ggname
-                        self.cards[2].setBackgroundImage(UIImage(data: datagg), for: .normal)
+                        cell.mallbutton.setBackgroundImage(UIImage(data: data), for: .normal)
                         
+                        
+                        
+                        cell.mallbutton.setTitle(importer.mallsinn![indexPath.row], for: .normal)
+                        if indexPath.row == 3{
+                            loderfu()
+                        }
                     }
                     
-                    self.cards[3].setTitle(json.gpname, for: .normal)
-                    let gpurl = URL(string: json.gpmallimage)!
-                    if let datagp = try? Data(contentsOf: gpurl){
-                        importer.gpdis = json.gpdis
-                        importer.imagegp = datagp
-                        importer.gpfloors = json.gpfloors
-                        importer.gpname = json.gpname
-                        self.cards[3].setBackgroundImage(UIImage(data: datagp), for: .normal)
-                    }
-                    self.loder.stopAnimating()
-                    self.loder.isHidden = true
-                    self.loder.isUserInteractionEnabled = false
-                    self.loderView.isExclusiveTouch = false
-                    self.loderView.isUserInteractionEnabled = false
                 }
-            }else if ViewController.myGlobalVar.region == "Delhi"{
-                //delhi stuff here
+                if indexPath.row == 0{
+                    importer.dmname = json.dmname
+                    importer.dmdis = json.dmdis
+                    importer.dmfloors = json.dmfloors
+                    importer.lcname = json.lcname
+                    importer.lcdis = json.lcdis
+                    importer.lcfloors = json.lcfloors
+                    importer.lcfloornames = json.lcfloornames // malls floornames
+                    importer.lcshopnameslg = json.lcshopslg // shops in lower ground
+                    importer.lcshopnamesg = json.lcshopg // shops in ground
+                    importer.lcshopnames1 = json.lcshop1 // shops in 1st floor
+                    importer.lcshopnames2 = json.lcshop2 // 2nd
+                    importer.lcshopnames3 = json.lcshop3 // 3rd
+                    importer.lcshopnames4 = json.lcshop4 // 4th
+                    importer.phoneNumberslg = json.lcshopphonelg // getting all the phone numbers in lg floor into this array
+                    
+                    importer.ggname = json.ggname
+                    importer.ggdis = json.ggdis
+                    importer.ggfloors = json.ggfloors
+                    importer.gpname = json.gpname
+                    importer.gpdis = json.gpdis
+                    importer.gpfloors = json.gpfloors
+                    
+                }
                 
-                DispatchQueue.main.async {
-                    
-                    self.navBar.title = "Malls in Delhi"
-                    // eight malls definetly needs more scrollable lenght thats why we increased it to 2400 sice its the double of 4 (1200+1200 = 2400)
-                    self.viewHeight.constant = 2400
-                    
-                    for i in 8...15{
-                        self.cards[i].isHidden = true
-                        self.cards[i].isEnabled = false
-                    }
-                    /// dlf mall
-                    self.cards[0].setTitle(json.vsname, for: .normal)
-                    let vsurl = URL(string: json.vsmallimage)!
-                    if let datavs = try? Data(contentsOf: vsurl){
-                        importer.vsdis = json.vsdis
-                        importer.imagevs = datavs
-                        importer.vsfloors = json.vsfloors
-                        importer.vsname = json.vsname
-                        self.cards[0].setBackgroundImage(UIImage(data: datavs), for: .normal)
-                    }
-                    
-                    self.cards[1].setTitle(json.tcname, for: .normal)
-                    let tcurl = URL(string: json.tcmallimage)!
-                    if let datatc = try? Data(contentsOf: tcurl){
-                        importer.tcdis = json.tcdis
-                        importer.imagetc = datatc
-                        importer.tcfloors = json.tcfloors
-                        importer.tcname = json.tcname
-                        self.cards[1].setBackgroundImage(UIImage(data: datatc), for: .normal)
+                
+                
+                importer.dataFloorLc = self.imageArrForLc // setting the value of our global [var] to our newly ready image array
+                for i in 0...2{ // getting one by one data from the array we make below
+                    if let imageData = try? Data(contentsOf: lcfloorurl[i]){
+                        
+                        self.imageArrForLc?.append(imageData) // appending the data to our image array we made in starting of the file
                         
                     }
-                    
-                    self.cards[2].setTitle(json.ccname, for: .normal)
-                    let ccurl = URL(string: json.ccmallimage)!
-                    if let datacc = try? Data(contentsOf: ccurl){
-                        importer.ccdis = json.ccdis
-                        importer.imagecc = datacc
-                        importer.ccfloors = json.ccfloors
-                        importer.ccname = json.ccname
-                        self.cards[2].setBackgroundImage(UIImage(data: datacc), for: .normal)
-                        
-                    }
-                    
-                    self.cards[3].setTitle(json.cmname, for: .normal)
-                    let cmurl = URL(string: json.cmmallimage)!
-                    if let datacm = try? Data(contentsOf: cmurl){
-                        importer.cmdis = json.cmdis
-                        importer.imagecm = datacm
-                        importer.cmfloors = json.cmfloors
-                        importer.cmname = json.cmname
-                        self.cards[3].setBackgroundImage(UIImage(data: datacm), for: .normal)
-                    }
-                    
-                    self.cards[4].setTitle(json.dsname, for: .normal)
-                    let dsurl = URL(string: json.dsmallimage)!
-                    if let datads = try? Data(contentsOf: dsurl){
-                        importer.dsdis = json.dsdis
-                        importer.imageds = datads
-                        importer.dsfloors = json.dsfloors
-                        importer.dsname = json.dsname
-                        self.cards[4].setBackgroundImage(UIImage(data: datads), for: .normal)
-                    }
-                    
-                    self.cards[5].setTitle(json.amname, for: .normal)
-                    let amurl = URL(string: json.ammallimage)!
-                    if let dataam = try? Data(contentsOf: amurl){
-                        importer.amdis = json.amdis
-                        importer.imageam = dataam
-                        importer.amfloors = json.amfloors
-                        importer.amname = json.amname
-                        self.cards[5].setBackgroundImage(UIImage(data: dataam), for: .normal)
-                        
-                    }
-                    
-                    self.cards[6].setTitle(json.pmname, for: .normal)
-                    let pmurl = URL(string: json.pmmallimage)!
-                    if let datapm = try? Data(contentsOf: pmurl){
-                        importer.pmdis = json.pmdis
-                        importer.imagepm = datapm
-                        importer.pmfloors = json.pmfloors
-                        importer.pmname = json.pmname
-                        self.cards[6].setBackgroundImage(UIImage(data: datapm), for: .normal)
-                        
-                    }
-                    
-                    self.cards[7].setTitle(json.scname, for: .normal)
-                    let scurl = URL(string: json.scmallimage)!
-                    if let datasc = try? Data(contentsOf: scurl){
-                        importer.scdis = json.scdis
-                        importer.imagesc = datasc
-                        importer.scfloors = json.scfloors
-                        importer.scname = json.scname
-                        self.cards[7].setBackgroundImage(UIImage(data: datasc), for: .normal)
-                    }
-                    self.loder.stopAnimating()
-                    self.loder.isHidden = true
-                    self.loder.isUserInteractionEnabled = false
-                    self.loderView.isExclusiveTouch = false
-                    self.loderView.isUserInteractionEnabled = false
                 }
+                
+                
+                
+            }else if ViewController.myGlobalVar.region == "Delhi"{
+                
+                let imgurl = URL(string: importer.mallsindimg![indexPath.row])!
+                
+                if let data = try? Data(contentsOf: imgurl ){
+                    
+                    imageArr?.append(data)
+                    importer.dataimg = imageArr
+                    DispatchQueue.main.async {
+                        if indexPath.row == 0{
+                            navBar.title = "Malls in Delhi"
+                        }
+                        
+                        cell.mallbutton.setTitle(importer.mallsind![indexPath.row], for: .normal)
+                        cell.mallbutton.setBackgroundImage(UIImage(data: data), for: .normal)
+                        loderfu()
+                    }
+                    if indexPath.row == 0{
+                        importer.vsname = json.vsname
+                        importer.vsdis = json.vsdis
+                        importer.vsfloors = json.vsfloors
+                        
+                        importer.tcname = json.tcname
+                        importer.tcdis = json.tcdis
+                        importer.tcfloors = json.tcfloors
+                        
+                        importer.ccname = json.ccname
+                        importer.ccdis = json.ccdis
+                        importer.ccfloors = json.ccfloors
+                        
+                        importer.cmname = json.cmname
+                        importer.cmdis = json.cmdis
+                        importer.cmfloors = json.cmfloors
+                        
+                        importer.dsname = json.dsname
+                        importer.dsdis = json.dsdis
+                        importer.dsfloors = json.dsfloors
+                        
+                        importer.amname = json.amname
+                        importer.amdis = json.amdis
+                        importer.amfloors = json.amfloors
+                        
+                        importer.pmname = json.pmname
+                        importer.pmdis = json.pmdis
+                        importer.pmfloors = json.pmfloors
+                        
+                        importer.scname = json.scname
+                        importer.scdis = json.scdis
+                        importer.scfloors = json.scfloors
+                        
+                        
+                    }
+                }
+                
                 
             }
-            
             
         })
         // here is where we resume our networking i think maybe ignore this or maybe this the reason why we taking so much time to render SHOULD LOOK INTO THAT PROBLEM MAYBE THIS RELEVANT
         task.resume()
         
+        return cell
+    }
+    @objc func mallTapped(_ sender: UIButton){ // ok so this function doesnt need explanation beause i dont know how to but this is hardcoded to get hold of button tapped in each and every indiviual cells in the table view with the help of sender tag-- this func is a target func targeted on line (110)
         
+        let button = sender.tag
         
-        
+        Malls.importer.sender = button // setting sender.tag to our foorsender which is  global so can be used and initalized anywhere.
+        performSegue(withIdentifier: "detail", sender: self)
         
     }
     // global variables for the detail view we have
     struct importer {
+        static var mallsingrimg : [String]? = []
+        static var mallsinnimg : [String]? = []
+        static var mallsindimg : [String]? = []
+        static var mallsingr : [String]? = []
+        static var mallsinn : [String]? = []
+        static var mallsind : [String]? = []
         // global sender.tag
         static var sender : Int? = nil
         // global floorsender.tag
@@ -381,10 +348,7 @@ class Malls: UIViewController {
         //global callsender.tag
         static var callsender : Int? = nil
         //gr noida
-        static var imagegrv : Data? = nil
-        static var imageomx : Data? = nil
-        static var imageans : Data? = nil
-        static var imagemsx : Data? = nil
+        
         static var gvfloors : Int? = nil
         static var omfloors : Int? = nil
         static var anfloors : Int? = nil
@@ -400,14 +364,12 @@ class Malls: UIViewController {
         
         
         //noida
-        static var imagedm : Data? = nil
+        
+        static var dataimg : [Data]? = nil
         static var dataFloorLc : [Data]? = nil // array contains all the floors in lc i.e. logix city noida
         static var phoneNumberslg : [Int]? = nil
         static var phoneNumbersg : [Int]? = nil
         static var phoneNumbers1 : [Int]? = nil
-        static var imagelc : Data? = nil
-        static var imagegg : Data? = nil
-        static var imagegp : Data? = nil
         static var lcfloors : Int? = nil
         static var ggfloors : Int? = nil
         static var gpfloors : Int? = nil
@@ -420,7 +382,7 @@ class Malls: UIViewController {
         static var lcdis : String? = nil
         static var ggdis : String? = nil
         static var gpdis : String? = nil
-        static var lcfloorimg : [String]? = nil
+        
         static var lcfloornames : [String]? = nil
         static var lcshopnameslg : [String]? = nil
         static var lcshopnamesg : [String]? = nil
@@ -431,14 +393,8 @@ class Malls: UIViewController {
         
         
         //delhi
-        static var imagevs : Data? = nil
-        static var imagetc : Data? = nil
-        static var imagecc : Data? = nil
-        static var imagecm : Data? = nil
-        static var imageds : Data? = nil
-        static var imageam : Data? = nil
-        static var imagepm : Data? = nil
-        static var imagesc : Data? = nil
+        
+        
         static var vsfloors : Int? = nil
         static var tcfloors : Int? = nil
         static var ccfloors : Int? = nil
@@ -466,6 +422,13 @@ class Malls: UIViewController {
         
         
     }
-    
+    // stoping loding activity function
+    func loderfu(){
+        self.loder.stopAnimating()
+        self.loder.isHidden = true
+        self.loder.isUserInteractionEnabled = false
+        self.loderView.isExclusiveTouch = false
+        self.loderView.isUserInteractionEnabled = false
+    }
 }
 

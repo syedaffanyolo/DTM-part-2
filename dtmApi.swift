@@ -21,7 +21,7 @@ struct grNoida : Codable{
     let gvshopphone:[Int]
     let gvshopnumbers:Int
     let gvfloorimages:[String]
-
+    
     let mmname : String
     let mmdis : String
     let mmfloors:Int
