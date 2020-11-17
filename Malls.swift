@@ -428,7 +428,7 @@ class Malls: UIViewController, UITableViewDelegate,  UITableViewDataSource {
     func loderfu(){
         self.loder.stopAnimating()
         self.loder.isHidden = true
-        self.loder.isUserInteractionEnabled = false
+        self.loder.isUserInteractionEnabled = false 
         self.loderView.isExclusiveTouch = false 
         self.loderView.isUserInteractionEnabled = false
     }
