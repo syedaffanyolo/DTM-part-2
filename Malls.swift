@@ -145,77 +145,77 @@ class Malls: UIViewController, UITableViewDelegate,  UITableViewDataSource {
             
             // checking selected region
             if ViewController.myGlobalVar.region == "Greater Noida"{
-                
-                // taking global var of [string] and converting into url with indexpath as index of the array
-                let imgurl = URL(string: importer.mallsingrimg![indexPath.row])!
-                // converting the var to data
-                if let data = try? Data(contentsOf: imgurl ){
-                    //appending all the data we get everytime this indexpath loop executes into an [data]
-                    imageArr?.append(data)
-                    // setting the array to gloabal level
-                    importer.dataimg = imageArr
-                    //performing all ui on main thread
-                    DispatchQueue.main.async {
-                        //ensuring this line of code runs only once because there is no need to run thsi in loop everytime
-                        if indexPath.row == 0 {
-                            navBar.title = "Malls in Greater Noida"
-                        }
-                        // setting the title with the help of our global var initiloiazed previously, here we do it with thehelp of indexpath
-                        cell.mallbutton.setTitle(importer.mallsingr![indexPath.row], for: .normal)
-                        
-                        // setting the backimagiee of button to the data we get evertime in the loop
-                        cell.mallbutton.setBackgroundImage(UIImage(data: data), for: .normal)
-                        //stoping the loader while ensuring the loop has ended
-                        if indexPath.row == 3{
-                            loderfu()
-                        }
+                for i in 0...3{
+                    // taking global var of [string] and converting into url with indexpath as index of the array
+                let imgurl = URL(string: importer.mallsingrimg![i])!
+                    // converting the var to data
+                    if let data = try? Data(contentsOf: imgurl ){
+                        //appending all the data we get everytime this indexpath loop executes into an [data]
+                        imageArr?.append(data)
+                        // setting the array to gloabal level
+                        importer.dataimg = imageArr
                     }
+            }
+                        //performing all ui on main thread
+                        DispatchQueue.main.async {
+                            //ensuring this line of code runs only once because there is no need to run thsi in loop everytime
+                            if indexPath.row == 0 {
+                                navBar.title = "Malls in Greater Noida"
+                            }
+                            // setting the title with the help of our global var initiloiazed previously, here we do it with thehelp of indexpath
+                            if let futureCell = mallTableView.cellForRow(at: indexPath) as? MallCells {
+                            futureCell.mallbutton.setTitle(importer.mallsingr![indexPath.row], for: .normal)
+                            
+                            // setting the backimagiee of button to the data we get evertime in the loop
+                                futureCell.mallbutton.setBackgroundImage(UIImage(data: importer.dataimg![indexPath.row]), for: .normal)
+                            }
+                            //stoping the loader while ensuring the loop has ended
+                            if indexPath.row == 3{
+                                loderfu()
+                            }
+                        }
                     
-                    //setting all the needed data to global lvl to be used in other view
-                    
-                    if indexPath.row == 0 {
                         
-                        importer.gvname = json.gvname
-                        importer.gvdis = json.gvdis
-                        importer.gvfloors = json.gvfloors
+                        //setting all the needed data to global lvl to be used in other view
                         
-                        importer.msname = json.mmname
-                        importer.msdis = json.mmdis
-                        importer.msfloors = json.mmfloors
-                        
-                        importer.anname = json.apname
-                        importer.andis = json.apdis
-                        importer.anfloors = json.apfloors
-                        
-                        importer.oaname = json.oaname
-                        importer.oadis = json.oadis
-                        importer.omfloors = json.oafloors
-                    }
-                }
-                
-                
-                
-                
-                
-                
-                
+                if indexPath.row == 0 {
+                            
+                            importer.gvname = json.gvname
+                            importer.gvdis = json.gvdis
+                            importer.gvfloors = json.gvfloors
+                            
+                            importer.msname = json.mmname
+                            importer.msdis = json.mmdis
+                            importer.msfloors = json.mmfloors
+                            
+                            importer.anname = json.apname
+                            importer.andis = json.apdis
+                            importer.anfloors = json.apfloors
+                            
+                            importer.oaname = json.oaname
+                            importer.oadis = json.oadis
+                            importer.omfloors = json.oafloors
+                        }
+ 
             }else if ViewController.myGlobalVar.region == "Noida"{
-                
-                let imgurl = URL(string: importer.mallsinnimg![indexPath.row])!
+                for i in 0...3{
+                let imgurl = URL(string: importer.mallsinnimg![i])!
                 if let data = try? Data(contentsOf: imgurl ){
                     
                     imageArr?.append(data)
                     importer.dataimg = imageArr
+                }
                     DispatchQueue.main.async {
                         if indexPath.row == 0{
                             navBar.title = "Malls in Noida"
                         }
+                        if let futureCell = mallTableView.cellForRow(at: indexPath) as? MallCells {
+                        futureCell.mallbutton.setBackgroundImage(UIImage(data: importer.dataimg![indexPath.row]), for: .normal)
                         
-                        cell.mallbutton.setBackgroundImage(UIImage(data: data), for: .normal)
                         
                         
-                        
-                        cell.mallbutton.setTitle(importer.mallsinn![indexPath.row], for: .normal)
+                        futureCell.mallbutton.setTitle(importer.mallsinn![indexPath.row], for: .normal)
+                        }
                         if indexPath.row == 3{
                             loderfu()
                         }
@@ -261,20 +261,22 @@ class Malls: UIViewController, UITableViewDelegate,  UITableViewDataSource {
                 
                 
             }else if ViewController.myGlobalVar.region == "Delhi"{
-                
-                let imgurl = URL(string: importer.mallsindimg![indexPath.row])!
+                for i in 0...7{
+                let imgurl = URL(string: importer.mallsindimg![i])!
                 
                 if let data = try? Data(contentsOf: imgurl ){
                     
                     imageArr?.append(data)
                     importer.dataimg = imageArr
+                }
                     DispatchQueue.main.async {
                         if indexPath.row == 0{
                             navBar.title = "Malls in Delhi"
                         }
-                        
-                        cell.mallbutton.setTitle(importer.mallsind![indexPath.row], for: .normal)
-                        cell.mallbutton.setBackgroundImage(UIImage(data: data), for: .normal)
+                        if let futureCell = mallTableView.cellForRow(at: indexPath) as? MallCells {
+                        futureCell.mallbutton.setTitle(importer.mallsind![indexPath.row], for: .normal)
+                        futureCell.mallbutton.setBackgroundImage(UIImage(data: importer.dataimg![indexPath.row]), for: .normal)
+                        }
                         loderfu()
                     }
                     if indexPath.row == 0{
@@ -427,7 +429,7 @@ class Malls: UIViewController, UITableViewDelegate,  UITableViewDataSource {
         self.loder.stopAnimating()
         self.loder.isHidden = true
         self.loder.isUserInteractionEnabled = false
-        self.loderView.isExclusiveTouch = false
+        self.loderView.isExclusiveTouch = false 
         self.loderView.isUserInteractionEnabled = false
     }
 }
